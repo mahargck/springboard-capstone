@@ -27,10 +27,12 @@ This website is designed to help make homesteading a bit easier.  For animals, i
     - HTML
     - CSS
     - Javascript (Modular)
+    - React.js
 - Backend
     - Node.js
 - Database
-    - MySQL Server
+    - ~~MySQL Server~~ Suggested by T.A.
+    - Postgres Server
 
 
 ## Process Description
