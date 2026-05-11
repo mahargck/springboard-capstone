@@ -1,0 +1,86 @@
+.HS-Table thead tr:nth-child(1) {
+    position: sticky;
+    top: 0;
+    background-color: #985E35;
+}
+.HS-Table tfoot tr:nth-child(1) {
+    background-color: #985E35;
+}
+
+.HS-Table tbody tr:nth-child(even) {
+  /* Apply a different background color to even rows */
+  background-color: #985E3588;
+}
+
+/* Optional: Add hover effect for better user experience */
+.HS-Table tbody tr:nth-child(odd) {
+  background-color: #985E3544;
+}
+/* Optional: Add hover effect for better user experience */
+.HS-Table tbody tr:hover {
+  background-color: #985E35BB;
+}
+table.HS-Table, .HS-Table tr {
+    border-color: #985E35;
+}
+
+.HS-Table tfoot {
+  background-color: #985E35BB;
+  align-items: center;
+}
+
+.HS-Table button.active {
+  background-color: #985E3544;
+}
+
+.HS-Table button:hover {
+  background-color: #985E35BB;
+}
+
+/* Dropdown */
+.HS-Table .w3-dropdown-hover {
+  background-color: #985E35;
+}
+.HS-Table button:hover {
+  background-color: #985E35BB;
+}
+
+.HS-Table th {
+  position: relative;
+}
+
+
+.HS-Table .sort {
+  margin: 0 4px;
+  padding: -4px 0;
+  /* box-sizing: border-box; */
+  /* position: absolute; */
+  display: inline-block;
+  font-size: .75em;
+  /* left: 4px; */
+  cursor: pointer;
+  line-height: 1;
+  width: 14px;
+}
+.HS-Table .asc,
+.HS-Table .desc {
+  box-sizing: border-box;
+  position: absolute;
+  display: inline-block;
+  left: 4px;
+  cursor: pointer;
+  line-height: 1;
+  width: 20px;
+  /* margin: 4px 4px; */
+}
+
+.HS-Table .asc {
+  top: 4px;
+}
+.HS-Table .desc {
+  bottom: 4px;
+}
+
+.HS-Table.w3-bar {
+  text-align: center;
+}

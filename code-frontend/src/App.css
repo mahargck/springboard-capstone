@@ -1,0 +1,251 @@
+#root {
+  width:100%;
+  /* max-width: 1280px; */
+  margin: 0 auto; /* Default */
+  padding: 2rem;
+  /* text-align: center; */
+}
+
+/* Need to rebuild this css.Class */
+.logo {
+  width: 120px;
+  /* height: 6em; */
+  padding: 8px;
+  /* padding: 1.5em; */
+  will-change: filter;
+  transition: filter 300ms;
+}
+.logo:hover {
+  filter: drop-shadow(0 0 2em #646cffaa);
+}
+.logo.react:hover {
+  filter: drop-shadow(0 0 2em #61dafbaa);
+}
+
+@keyframes logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  a:nth-of-type(2) .logo {
+    animation: logo-spin infinite 20s linear;
+  }
+}
+
+.card {
+  padding: 2em;
+}
+
+.read-the-docs {
+  color: #888;
+}
+
+
+/* Overrides */
+
+
+
+
+
+:root {
+  --brown-bark: #6b4423;
+  --dark-coffee: #3D2B1F;
+  --pale-oak: #dac8ae;
+  --pale-oak-highlight: #ede3d7;
+  --black-forest: #00401A;
+  --forest-moss: #568203;
+  --moss-green: #74c365;
+  --celadon: #ACE1AF;
+
+  --primary: var(--brown-bark);
+  --primary-color: var(--pale-oak);
+  --primary-accent: var(--dark-coffee);
+  --primary-highlight: var(--pale-oak-highlight);
+
+  --secondary: var(--forest-moss);
+  --secondary-color: var(--moss-green);
+  --secondary-accent: var(--black-forest);
+  --secondary-highlight: var(--celadon);
+
+  /* --accent-color: var(--forest-moss);
+  --highlight-color: var(--moss-green); */
+}
+
+h1 {
+  color: var(--primary);
+  font-weight: bold;
+}
+h3, h4 {
+  margin: 0 0;
+}
+
+.primary {
+  background-color: var(--primary);
+  color: #fff;
+}
+.primary-color {
+  background-color: var(--primary-color);
+}
+.primary-accent, .primary.active {
+  background-color: var(--primary-accent);
+}
+.primary-highlight {
+  background-color: var(--primary-highlight);
+}
+.secondary {
+  background-color: var(--secondary);
+}
+.secondary-color {
+  background-color: var(--secondary-color);
+}
+.secondary-accent, .secondary.active {
+  background-color: var(--secondary-accent);
+}
+.secondary-highlight {
+  background-color: var(--secondary-highlight);
+}
+.text-primary {
+  color: var(--primary);
+}
+.text-primary-color {
+  color: var(--primary-color);
+}
+.text-primary-accent {
+  color: var(--primary-accent);
+}
+.text-primary-highlight {
+  color: var(--primary-highlight);
+}
+.text-secondary {
+  color: var(--secondary);
+}
+.text-secondary-color {
+  color: var(--secondary-color);
+}
+.text-secondary-accent {
+  color: var(--secondary-accent);
+}
+.text-secondary-highlight {
+  color: var(--secondary-highlight);
+}
+
+
+/* Nav Bar */
+.w3-bar.primary {
+  background-color: var(--primary);
+}
+.w3-bar span {
+  cursor: default;
+}
+
+.w3-bar.secondary {
+  background-color: var(--secondary);
+  padding-left: 32px;
+}
+
+.w3-bar a, .w3-bar span {
+  padding: 8px 16px;
+  display: inline-block;
+}
+
+.hs-button {
+  background-color: var(--primary);
+  color: var(--primary-color);
+  border: none;
+  padding: 8px 16px;
+  cursor: pointer;
+}
+.hs-button:hover {
+  background-color: var(--primary-highlight);
+  color: var(--primary);
+}
+.hs-button.active {
+  background-color: var(--primary-color);
+  color: var(--primary-accent);
+  font-weight: bold;
+  text-shadow: 0 0 8px var(--primary-accent);
+}
+
+.hs-button.secondary {
+  background-color: var(--secondary);
+  color: var(--secondary-color);
+}
+.hs-button.secondary:hover {
+  background-color: var(--secondary-highlight);
+  color: var(--secondary);
+}
+.hs-button.secondary.active {
+  background-color: var(--secondary-color);
+  color: var(--secondary-accent);
+  text-shadow: 0 0 8px var(--secondary-accent);
+}
+
+
+
+/* Table */
+.HS-Table thead tr:nth-child(1) {
+    position: sticky;
+    top: 0;
+    background-color: var(--primary);
+    color: var(--primary-color);
+}
+.HS-Table tfoot tr:nth-child(1) {
+    background-color: var(--primary);
+}
+
+.HS-Table tbody tr:nth-child(even) {
+  /* Apply a different background color to even rows */
+  background-color: var(--primary)88;
+  background-color: #6b442388;
+}
+/* Optional: Add hover effect for better user experience */
+.HS-Table tbody tr:nth-child(odd) {
+  background-color: var(--primary)44;
+  background-color: #6b442344;
+}
+/* Optional: Add hover effect for better user experience */
+.HS-Table tbody tr:hover {
+  background-color: var(--primary)BB;
+  background-color: #6b4423BB;
+}
+table.HS-Table, .HS-Table tr {
+    border-color: var(--primary);
+}
+
+.HS-Table tfoot {
+  background-color: var(--primary)BB;
+  align-items: center;
+}
+.HS-Table button.active {
+  background-color: var(--primary)44;
+}
+.HS-Table button:hover {
+  background-color: var(--primary)BB;
+}
+/* Dropdown */
+.HS-Table .w3-dropdown-hover {
+  background-color: var(--primary);
+}
+.HS-Table button:hover {
+  background-color: var(--primary)BB;
+}
+.HS-Table th {
+  position: relative;
+}
+.HS-Table .asc,
+.HS-Table .desc {
+  box-sizing: border-box;
+  position: absolute;
+  right: 4px;
+  cursor: pointer;
+  line-height: 1;
+}
+
+.HS-Table.w3-bar {
+  text-align: center;
+}

@@ -1,0 +1,1021 @@
+{
+    "header": [
+        {
+            "key": "name",
+            "name": "Wood",
+            "title": "",
+            "style": {},
+            "dataType": "string",
+            "isSort": true,
+            "isFilter": false,
+            "isVisible": true,
+            "list": [],
+            "symbols": {},
+            "category": null
+        },
+        {
+            "key": "heatQuality",
+            "name": "Heat",
+            "title": "",
+            "style": {
+                "width": "140px"
+            },
+            "dataType": "number",
+            "isSort": true,
+            "isFilter": true,
+            "isVisible": true,
+            "list": [
+                0,
+                1,
+                2,
+                3,
+                4,
+                5,
+                6
+            ],
+            "symbols": {
+                "0": "-",
+                "1": "★",
+                "2": "★★",
+                "3": "★★★",
+                "4": "★★★★",
+                "5": "★★★★★",
+                "6": "★★★★★⭐"
+            },
+            "category": null
+        },
+        {
+            "key": "starting",
+            "name": "Starting",
+            "title": "",
+            "style": {
+                "width": "140px"
+            },
+            "dataType": "number",
+            "isSort": true,
+            "isFilter": true,
+            "isVisible": true,
+            "list": [],
+            "symbols": {
+                "0": "-",
+                "1": "★",
+                "2": "★★",
+                "3": "★★★",
+                "4": "★★★★",
+                "5": "★★★★★"
+            },
+            "category": null
+        },
+        {
+            "key": "splitting",
+            "name": "Splitting",
+            "title": "",
+            "style": {
+                "width": "140px"
+            },
+            "dataType": "number",
+            "isSort": true,
+            "isFilter": true,
+            "isVisible": true,
+            "list": [],
+            "symbols": {
+                "0": "-",
+                "1": "★",
+                "2": "★★",
+                "3": "★★★",
+                "4": "★★★★",
+                "5": "★★★★★",
+                "6": "★★★★★⭐"
+            },
+            "category": null
+        },
+        {
+            "key": "sparks",
+            "name": "Sparks",
+            "title": "",
+            "style": {
+                "width": "140px"
+            },
+            "dataType": "number",
+            "isSort": true,
+            "isFilter": true,
+            "isVisible": true,
+            "list": [],
+            "symbols": {
+                "0": "-",
+                "1": "💥",
+                "2": "💥💥",
+                "3": "💥💥💥",
+                "4": "💥💥💥💥",
+                "5": "💥💥💥💥💥"
+            },
+            "category": null
+        },
+        {
+            "key": "smoke",
+            "name": "Smoke",
+            "title": "",
+            "style": {
+                "width": "140px"
+            },
+            "dataType": "number",
+            "isSort": true,
+            "isFilter": true,
+            "isVisible": true,
+            "list": [],
+            "symbols": {
+                "0": "-",
+                "1": "☁️",
+                "2": "☁️☁️",
+                "3": "☁️☁️☁️",
+                "4": "☁️☁️☁️☁️",
+                "5": "☁️☁️☁️☁️☁️"
+            },
+            "category": null
+        },
+        {
+            "key": "BTU",
+            "name": "B.T.U.",
+            "title": "Energy per Cord",
+            "style": {
+                "width": "96px"
+            },
+            "dataType": "number",
+            "isSort": true,
+            "isFilter": true,
+            "isVisible": true,
+            "list": [],
+            "symbols": {},
+            "category": null
+        },
+        {
+            "key": "rating",
+            "name": "Rating",
+            "title": "",
+            "style": {
+                "width": "120px"
+            },
+            "dataType": "number",
+            "isSort": true,
+            "isFilter": true,
+            "isVisible": true,
+            "list": [],
+            "symbols": {
+                "0": "-",
+                "1": "★",
+                "2": "★★",
+                "3": "★★★",
+                "4": "★★★★",
+                "5": "★★★★★"
+            },
+            "category": null
+        },
+        {
+            "key": "sources",
+            "name": "Sources",
+            "title": "",
+            "style": {},
+            "dataType": "string",
+            "isSort": false,
+            "isFilter": false,
+            "isVisible": false,
+            "list": [],
+            "symbols": {},
+            "category": null
+        }
+    ],
+    "sort": [
+        [
+            "name",
+            true
+        ]
+    ],
+    "filter": [],
+    "data": [
+        {
+            "name": "Alder",
+            "heatQuality": 3,
+            "starting": 4,
+            "splitting": 5,
+            "sparks": 3,
+            "smoke": 3,
+            "BTU": 17.6,
+            "rating": 3
+        },
+        {
+            "name": "Apple",
+            "heatQuality": 4,
+            "starting": 2,
+            "splitting": 2,
+            "sparks": 2,
+            "smoke": 3,
+            "BTU": 17.6,
+            "rating": 3
+        },
+        {
+            "name": "Ash",
+            "heatQuality": 5,
+            "starting": 3,
+            "splitting": 4,
+            "sparks": 2,
+            "smoke": 0,
+            "BTU": null,
+            "rating": 5
+        },
+        {
+            "name": "Ash (Black)",
+            "heatQuality": 5,
+            "starting": 3,
+            "splitting": 4,
+            "sparks": 2,
+            "smoke": 0,
+            "BTU": 19.1,
+            "rating": 5
+        },
+        {
+            "name": "Ash (Green)",
+            "heatQuality": 5,
+            "starting": 3,
+            "splitting": 4,
+            "sparks": 2,
+            "smoke": 0,
+            "BTU": 20,
+            "rating": 5
+        },
+        {
+            "name": "Ash (White)",
+            "heatQuality": 5,
+            "starting": 3,
+            "splitting": 4,
+            "sparks": 2,
+            "smoke": 0,
+            "BTU": 23.6,
+            "rating": 5
+        },
+        {
+            "name": "Aspen",
+            "heatQuality": 1,
+            "starting": 5,
+            "splitting": 5,
+            "sparks": 2,
+            "smoke": 3,
+            "BTU": 14.5,
+            "rating": 3
+        },
+        {
+            "name": "Basswood",
+            "heatQuality": 1,
+            "starting": 5,
+            "splitting": 5,
+            "sparks": 0,
+            "smoke": 3,
+            "BTU": 12.6,
+            "rating": 3
+        },
+        {
+            "name": "Beech",
+            "heatQuality": 5,
+            "starting": 2,
+            "splitting": 2,
+            "sparks": 2,
+            "smoke": 0,
+            "BTU": 21.8,
+            "rating": 5
+        },
+        {
+            "name": "Beech (Blue)",
+            "heatQuality": 5,
+            "starting": 2,
+            "splitting": 2,
+            "sparks": 2,
+            "smoke": 0,
+            "BTU": 26.8,
+            "rating": 5
+        },
+        {
+            "name": "Birch (Black)",
+            "heatQuality": 5,
+            "starting": 3,
+            "splitting": 3,
+            "sparks": 3,
+            "smoke": 0,
+            "BTU": 26.8,
+            "rating": 5
+        },
+        {
+            "name": "Birch (Grey)",
+            "heatQuality": 5,
+            "starting": 3,
+            "splitting": 3,
+            "sparks": 3,
+            "smoke": 0,
+            "BTU": 20.3,
+            "rating": 4
+        },
+        {
+            "name": "Birch (Paper)",
+            "heatQuality": 5,
+            "starting": 3,
+            "splitting": 3,
+            "sparks": 0,
+            "smoke": 3,
+            "BTU": 20.8,
+            "rating": 3
+        },
+        {
+            "name": "Birch (White)",
+            "heatQuality": 5,
+            "starting": 3,
+            "splitting": 3,
+            "sparks": 3,
+            "smoke": 3,
+            "BTU": 20.3,
+            "rating": 4
+        },
+        {
+            "name": "Birch (Yellow)",
+            "heatQuality": 5,
+            "starting": 3,
+            "splitting": 5,
+            "sparks": 3,
+            "smoke": 0,
+            "BTU": 23.6,
+            "rating": 5
+        },
+        {
+            "name": "Box Elder",
+            "heatQuality": 3,
+            "starting": 3,
+            "splitting": 2,
+            "sparks": 0,
+            "smoke": 3,
+            "BTU": 18.3,
+            "rating": 3
+        },
+        {
+            "name": "Buckeye Ohio",
+            "heatQuality": 1,
+            "starting": 3,
+            "splitting": 3,
+            "sparks": 0,
+            "smoke": 0,
+            "BTU": 13.8,
+            "rating": 3
+        },
+        {
+            "name": "Butternut",
+            "heatQuality": 1,
+            "starting": 3,
+            "splitting": 5,
+            "sparks": 0,
+            "smoke": 3,
+            "BTU": 14.5,
+            "rating": 3
+        },
+        {
+            "name": "Catalpa",
+            "heatQuality": 1,
+            "starting": 3,
+            "splitting": 2,
+            "sparks": 0,
+            "smoke": 3,
+            "BTU": 15.5,
+            "rating": 3
+        },
+        {
+            "name": "Cedar (Eastern Red)",
+            "heatQuality": 3,
+            "starting": 3,
+            "splitting": 3,
+            "sparks": 3,
+            "smoke": 3,
+            "BTU": 17.5,
+            "rating": 4
+        },
+        {
+            "name": "Cedar (Western Red)",
+            "heatQuality": 2,
+            "starting": 5,
+            "splitting": 5,
+            "sparks": 5,
+            "smoke": 3,
+            "BTU": 17.5,
+            "rating": 4
+        },
+        {
+            "name": "Cedar (White)",
+            "heatQuality": 3,
+            "starting": 5,
+            "splitting": 5,
+            "sparks": 3,
+            "smoke": 3,
+            "BTU": 17.5,
+            "rating": 4
+        },
+        {
+            "name": "Cedar (Incense)",
+            "heatQuality": 2,
+            "starting": 5,
+            "splitting": 5,
+            "sparks": 5,
+            "smoke": null,
+            "BTU": null,
+            "rating": 4
+        },
+        {
+            "name": "Cherry",
+            "heatQuality": 3,
+            "starting": 5,
+            "splitting": 5,
+            "sparks": 2,
+            "smoke": 0,
+            "BTU": 18.5,
+            "rating": 4
+        },
+        {
+            "name": "Cherry (Black)",
+            "heatQuality": 3,
+            "starting": 5,
+            "splitting": 5,
+            "sparks": 0,
+            "smoke": 0,
+            "BTU": 18.6,
+            "rating": 4
+        },
+        {
+            "name": "Chestnut",
+            "heatQuality": 1,
+            "starting": 5,
+            "splitting": 5,
+            "sparks": 3,
+            "smoke": 3,
+            "BTU": "",
+            "rating": 2
+        },
+        {
+            "name": "Coffeetree Kentucky",
+            "heatQuality": 5,
+            "starting": 3,
+            "splitting": 3,
+            "sparks": 0,
+            "smoke": 0,
+            "BTU": 21.6,
+            "rating": 4
+        },
+        {
+            "name": "Cottonwood",
+            "heatQuality": 1,
+            "starting": 5,
+            "splitting": 5,
+            "sparks": 3,
+            "smoke": 3,
+            "BTU": 12.2,
+            "rating": 3
+        },
+        {
+            "name": "Cypress",
+            "heatQuality": 3,
+            "starting": 3,
+            "splitting": 5,
+            "sparks": 0,
+            "smoke": 3,
+            "BTU": null,
+            "rating": 3
+        },
+        {
+            "name": "Dogwood",
+            "heatQuality": 5,
+            "starting": 5,
+            "splitting": 2,
+            "sparks": 2,
+            "smoke": 0,
+            "BTU": 24.3,
+            "rating": 5
+        },
+        {
+            "name": "Elm",
+            "heatQuality": 3,
+            "starting": 4,
+            "splitting": 1,
+            "sparks": 1,
+            "smoke": null,
+            "BTU": null,
+            "rating": null
+        },
+        {
+            "name": "Elm (American)",
+            "heatQuality": 5,
+            "starting": 3,
+            "splitting": 1,
+            "sparks": 0,
+            "smoke": 3,
+            "BTU": 20,
+            "rating": 3
+        },
+        {
+            "name": "Elm (Red)",
+            "heatQuality": 5,
+            "starting": 3,
+            "splitting": 5,
+            "sparks": 0,
+            "smoke": 3,
+            "BTU": 21.6,
+            "rating": 4
+        },
+        {
+            "name": "Elm (Rock)",
+            "heatQuality": 5,
+            "starting": 3,
+            "splitting": 1,
+            "sparks": 0,
+            "smoke": 3,
+            "BTU": 23.5,
+            "rating": 4
+        },
+        {
+            "name": "Elm (Siberian)",
+            "heatQuality": 5,
+            "starting": 3,
+            "splitting": 1,
+            "sparks": 0,
+            "smoke": 3,
+            "BTU": 20.9,
+            "rating": 3
+        },
+        {
+            "name": "Fir (Douglas)",
+            "heatQuality": 5,
+            "starting": 5,
+            "splitting": 5,
+            "sparks": 3,
+            "smoke": 4,
+            "BTU": 21.4,
+            "rating": 4
+        },
+        {
+            "name": "Fir (Grand)",
+            "heatQuality": 2,
+            "starting": 5,
+            "splitting": 5,
+            "sparks": 3,
+            "smoke": null,
+            "BTU": null,
+            "rating": null
+        },
+        {
+            "name": "Fir (Noble)",
+            "heatQuality": 2,
+            "starting": 5,
+            "splitting": 5,
+            "sparks": 3,
+            "smoke": null,
+            "BTU": null,
+            "rating": null
+        },
+        {
+            "name": "Fir (Pacific Silver)",
+            "heatQuality": 2,
+            "starting": 5,
+            "splitting": 5,
+            "sparks": 3,
+            "smoke": null,
+            "BTU": null,
+            "rating": null
+        },
+        {
+            "name": "Fir (White)",
+            "heatQuality": 2,
+            "starting": 5,
+            "splitting": 5,
+            "sparks": 3,
+            "smoke": null,
+            "BTU": null,
+            "rating": null
+        },
+        {
+            "name": "Gum (Black)",
+            "heatQuality": 3,
+            "starting": 3,
+            "splitting": 3,
+            "sparks": 0,
+            "smoke": 3,
+            "BTU": 18.1,
+            "rating": 3
+        },
+        {
+            "name": "Gum (Sweet)",
+            "heatQuality": 3,
+            "starting": 3,
+            "splitting": 3,
+            "sparks": 3,
+            "smoke": 3,
+            "BTU": 18.7,
+            "rating": 4
+        },
+        {
+            "name": "Hackberry",
+            "heatQuality": 5,
+            "starting": 5,
+            "splitting": 5,
+            "sparks": 0,
+            "smoke": 0,
+            "BTU": 21.2,
+            "rating": 5
+        },
+        {
+            "name": "Hemlock",
+            "heatQuality": 2,
+            "starting": 5,
+            "splitting": 5,
+            "sparks": 5,
+            "smoke": null,
+            "BTU": null,
+            "rating": null
+        },
+        {
+            "name": "Hickory (Bitternut)",
+            "heatQuality": 5,
+            "starting": 3,
+            "splitting": 3,
+            "sparks": 0,
+            "smoke": 0,
+            "BTU": 26.7,
+            "rating": 5
+        },
+        {
+            "name": "Hickory (Shagbark)",
+            "heatQuality": 5,
+            "starting": 3,
+            "splitting": 3,
+            "sparks": 0,
+            "smoke": 0,
+            "BTU": 27.5,
+            "rating": 5
+        },
+        {
+            "name": "Ironwood (Hornbeam)",
+            "heatQuality": 6,
+            "starting": 1,
+            "splitting": 1,
+            "sparks": 2,
+            "smoke": 0,
+            "BTU": 24.7,
+            "rating": 5
+        },
+        {
+            "name": "Juniper",
+            "heatQuality": 3,
+            "starting": 4,
+            "splitting": 2,
+            "sparks": 5,
+            "smoke": 3,
+            "BTU": null,
+            "rating": 4
+        },
+        {
+            "name": "Larch",
+            "heatQuality": 3,
+            "starting": 5,
+            "splitting": 5,
+            "sparks": 3,
+            "smoke": 3,
+            "BTU": 20.8,
+            "rating": 3
+        },
+        {
+            "name": "Larch (tamarack)",
+            "heatQuality": 4,
+            "starting": 4,
+            "splitting": 4,
+            "sparks": 5,
+            "smoke": null,
+            "BTU": null,
+            "rating": null
+        },
+        {
+            "name": "Larch (western)",
+            "heatQuality": 4,
+            "starting": 5,
+            "splitting": 4,
+            "sparks": 5,
+            "smoke": null,
+            "BTU": null,
+            "rating": null
+        },
+        {
+            "name": "Locust (Black)",
+            "heatQuality": 6,
+            "starting": 2,
+            "splitting": 1,
+            "sparks": 1,
+            "smoke": 0,
+            "BTU": 26.5,
+            "rating": 5
+        },
+        {
+            "name": "Locust (Honey)",
+            "heatQuality": 5,
+            "starting": 5,
+            "splitting": 3,
+            "sparks": 0,
+            "smoke": 0,
+            "BTU": 25.8,
+            "rating": 5
+        },
+        {
+            "name": "Madrone",
+            "heatQuality": 5,
+            "starting": 2,
+            "splitting": 2,
+            "sparks": 1,
+            "smoke": 0,
+            "BTU": 30,
+            "rating": 5
+        },
+        {
+            "name": "Magnolia",
+            "heatQuality": 3,
+            "starting": 5,
+            "splitting": 5,
+            "sparks": 0,
+            "smoke": 0,
+            "BTU": 18,
+            "rating": 3
+        },
+        {
+            "name": "Maple (Hard)",
+            "heatQuality": 5,
+            "starting": 3,
+            "splitting": 3,
+            "sparks": 2,
+            "smoke": 0,
+            "BTU": 29.7,
+            "rating": 5
+        },
+        {
+            "name": "Maple (Soft)",
+            "heatQuality": 3,
+            "starting": 3,
+            "splitting": 3,
+            "sparks": 2,
+            "smoke": 0,
+            "BTU": 19.1,
+            "rating": 4
+        },
+        {
+            "name": "Mesquite",
+            "heatQuality": 6,
+            "starting": 1,
+            "splitting": 1,
+            "sparks": 2,
+            "smoke": 3,
+            "BTU": null,
+            "rating": 4
+        },
+        {
+            "name": "Mulberry",
+            "heatQuality": 5,
+            "starting": 5,
+            "splitting": 5,
+            "sparks": 0,
+            "smoke": 3,
+            "BTU": 25.8,
+            "rating": 5
+        },
+        {
+            "name": "Oak (Live)",
+            "heatQuality": 5,
+            "starting": 5,
+            "splitting": 5,
+            "sparks": 0,
+            "smoke": 0,
+            "BTU": 25,
+            "rating": 5
+        },
+        {
+            "name": "Oak (Black)",
+            "heatQuality": 5,
+            "starting": 2,
+            "splitting": 3,
+            "sparks": 2,
+            "smoke": null,
+            "BTU": null,
+            "rating": null
+        },
+        {
+            "name": "Oak (Red)",
+            "heatQuality": 5,
+            "starting": 5,
+            "splitting": 5,
+            "sparks": 0,
+            "smoke": 0,
+            "BTU": 21.7,
+            "rating": 5
+        },
+        {
+            "name": "Oak (White)",
+            "heatQuality": 6,
+            "starting": 2,
+            "splitting": 3,
+            "sparks": 2,
+            "smoke": 0,
+            "BTU": 26.5,
+            "rating": 5
+        },
+        {
+            "name": "Pecan",
+            "heatQuality": 5,
+            "starting": 5,
+            "splitting": 5,
+            "sparks": 0,
+            "smoke": 0,
+            "BTU": "",
+            "rating": 5
+        },
+        {
+            "name": "Piinon",
+            "heatQuality": 3,
+            "starting": 5,
+            "splitting": 5,
+            "sparks": 3,
+            "smoke": 3,
+            "BTU": "",
+            "rating": 4
+        },
+        {
+            "name": "Pine (Eastern White)",
+            "heatQuality": 1,
+            "starting": 3,
+            "splitting": 5,
+            "sparks": 0,
+            "smoke": 3,
+            "BTU": 15.8,
+            "rating": 3
+        },
+        {
+            "name": "Pine (Lodgepole)",
+            "heatQuality": 1,
+            "starting": 5,
+            "splitting": 5,
+            "sparks": 3,
+            "smoke": null,
+            "BTU": null,
+            "rating": null
+        },
+        {
+            "name": "Pine (Ponderosa)",
+            "heatQuality": 2,
+            "starting": 3,
+            "splitting": 5,
+            "sparks": 3,
+            "smoke": 3,
+            "BTU": 17,
+            "rating": 3
+        },
+        {
+            "name": "Pine (Southern Yellow)",
+            "heatQuality": 5,
+            "starting": 5,
+            "splitting": 5,
+            "sparks": 3,
+            "smoke": 4,
+            "BTU": "",
+            "rating": 4
+        },
+        {
+            "name": "Pine (Sugar)",
+            "heatQuality": 1,
+            "starting": 3,
+            "splitting": 5,
+            "sparks": 0,
+            "smoke": 3,
+            "BTU": 15.8,
+            "rating": 3
+        },
+        {
+            "name": "Pine (Western White)",
+            "heatQuality": 1,
+            "starting": 3,
+            "splitting": 5,
+            "sparks": 0,
+            "smoke": 3,
+            "BTU": 15.8,
+            "rating": 3
+        },
+        {
+            "name": "Pine (White)",
+            "heatQuality": 2,
+            "starting": 5,
+            "splitting": 5,
+            "sparks": 3,
+            "smoke": null,
+            "BTU": null,
+            "rating": null
+        },
+        {
+            "name": "Pine (Yellow)",
+            "heatQuality": 4,
+            "starting": 5,
+            "splitting": 5,
+            "sparks": 3,
+            "smoke": null,
+            "BTU": null,
+            "rating": null
+        },
+        {
+            "name": "Poplar (Yellow)",
+            "heatQuality": 1,
+            "starting": 5,
+            "splitting": 5,
+            "sparks": 3,
+            "smoke": 3,
+            "BTU": 16,
+            "rating": 2
+        },
+        {
+            "name": "Redwood",
+            "heatQuality": 3,
+            "starting": 3,
+            "splitting": 5,
+            "sparks": 5,
+            "smoke": 3,
+            "BTU": null,
+            "rating": 3
+        },
+        {
+            "name": "Spruce",
+            "heatQuality": 1,
+            "starting": 5,
+            "splitting": 4,
+            "sparks": 2,
+            "smoke": 3,
+            "BTU": 15.9,
+            "rating": 2
+        },
+        {
+            "name": "Spruce (Engleman)",
+            "heatQuality": 1,
+            "starting": 5,
+            "splitting": 5,
+            "sparks": 2,
+            "smoke": null,
+            "BTU": null,
+            "rating": null
+        },
+        {
+            "name": "Sycamore",
+            "heatQuality": 3,
+            "starting": 3,
+            "splitting": 1,
+            "sparks": 2,
+            "smoke": 3,
+            "BTU": 18.5,
+            "rating": 3
+        },
+        {
+            "name": "Tamarack",
+            "heatQuality": 3,
+            "starting": 5,
+            "splitting": 5,
+            "sparks": 3,
+            "smoke": 3,
+            "BTU": 20.8,
+            "rating": 3
+        },
+        {
+            "name": "True Firs",
+            "heatQuality": 1,
+            "starting": 3,
+            "splitting": 5,
+            "sparks": 0,
+            "smoke": 3,
+            "BTU": 19.5,
+            "rating": 3
+        },
+        {
+            "name": "Walnut",
+            "heatQuality": 4,
+            "starting": 4,
+            "splitting": 4,
+            "sparks": 2,
+            "smoke": 0,
+            "BTU": 20.3,
+            "rating": 4
+        },
+        {
+            "name": "Willow",
+            "heatQuality": 1,
+            "starting": 4,
+            "splitting": 5,
+            "sparks": 3,
+            "smoke": 2,
+            "BTU": 14.5,
+            "rating": 3
+        }
+    ],
+    "sources": [
+        "https://owic.oregonstate.edu/sites/default/files/pubs/firewood.pdf",
+        "https://www.crfd.org/firewood.htm",
+        "https://permies.com/t/20012/Firewood-Guide-BTU-Rating-Chart"
+    ]
+}
