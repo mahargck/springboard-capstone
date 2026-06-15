@@ -1,14 +1,12 @@
 #root {
-  width:100%;
-  /* max-width: 1280px; */
+  width: 100%;
   margin: 0 auto; /* Default */
-  padding: 2rem;
-  /* text-align: center; */
 }
 
 /* Need to rebuild this css.Class */
 .logo {
   width: 120px;
+  height: 120px;
   /* height: 6em; */
   padding: 8px;
   /* padding: 1.5em; */
@@ -47,20 +45,45 @@
 
 
 /* Overrides */
-
+table {
+  border-collapse: separate;
+}
 
 
 
 
 :root {
+  /* Old */
+  /* Browns */
   --brown-bark: #6b4423;
   --dark-coffee: #3D2B1F;
   --pale-oak: #dac8ae;
   --pale-oak-highlight: #ede3d7;
+  /* Greens */
   --black-forest: #00401A;
   --forest-moss: #568203;
   --moss-green: #74c365;
   --celadon: #ACE1AF;
+
+  /* New */
+  /* Browns */
+  --coffee-bean: #644536;
+  --toffee-brown: #9e6240;
+  --copper: #b87d48;
+  --sandy-clay: #d4aa7d;
+  --navajo-white: #ffe0b5;
+  /* Greens */
+  --pine-teal: #344e41;
+  --hunter-green: #3a5a40;
+  --fern: #588157;
+  --dry-sage: #a3b18a;
+  --dust-grey: #dad7cd;
+  /* Blue */
+  --deep-twilight: #03045e;
+  --bright-teal-blue: #0077b6;
+  --turquoise-surf: #00b4d8;
+  --frosted-blue: #90e0ef;
+  --light-cyan: #caf0f8;
 
   --primary: var(--brown-bark);
   --primary-color: var(--pale-oak);
@@ -71,81 +94,177 @@
   --secondary-color: var(--moss-green);
   --secondary-accent: var(--black-forest);
   --secondary-highlight: var(--celadon);
-
-  /* --accent-color: var(--forest-moss);
-  --highlight-color: var(--moss-green); */
+  
+  --tertiary: var(--forest-moss);
+  --tertiary-color: var(--moss-green);
+  --tertiary-accent: var(--black-forest);
+  --tertiary-highlight: var(--celadon);
 }
 
 h1 {
-  color: var(--primary);
+  color: var(--coffee-bean);
   font-weight: bold;
 }
 h3, h4 {
   margin: 0 0;
 }
 
-.primary {
-  background-color: var(--primary);
+.bg-brown-1, .bg-brown.c1, .bg-brown,
+.bg-brown a, .bg-brown button,
+a.bg-brown, button.bg-brown,
+.w3-bar.bg-brown a, .w3-bar.bg-brown button {
+  background-color: var(--coffee-bean);
+  color: var(--sandy-clay);
+}
+.bg-brown-2, .bg-brown.c2,
+.bg-brown.active, .bg-brown .active, .w3-bar.bg-brown .active {
+  background-color: var(--toffee-brown);
+  color: var(--sandy-clay);
+}
+.bg-brown-3, .bg-brown.c3,
+a.bg-brown:hover, button.bg-brown:hover
+.bg-brown a:hover, .bg-brown button:hover {
+  background-color: var(--copper);
+  color: #000;
+}
+.bg-brown-4, .bg-brown.c4 {
+  background-color: var(--sandy-clay);
+  color: #000;
+}
+.bg-brown-5, .bg-brown.c5 {
+  background-color: var(--navajo-white);
+  color: #000;
+}
+.bg-green-1, .bg-green.c1, .bg-green,
+.bg-green a, .bg-green button,
+a.bg-green, button.bg-green
+.w3-bar.bg-green a, .w3-bar.bg-green button {
+  background-color: var(--pine-teal);
+  color: var(--dry-sage);
+}
+.bg-green-2, .bg-green.c2,
+.bg-green.active, .bg-green .active, .w3-bar.bg-green .active {
+  background-color: var(--hunter-green);
   color: #fff;
 }
-.primary-color {
-  background-color: var(--primary-color);
+.bg-green-3, .bg-green.c3,
+a.bg-green:hover, button.bg-green:hover
+.bg-green a:hover, .bg-green button:hover {
+  background-color: var(--fern);
+  color: #000;
 }
-.primary-accent, .primary.active {
-  background-color: var(--primary-accent);
+.bg-green-4, .bg-green.c4 {
+  background-color: var(--dry-sage);
+  color: #000;
 }
-.primary-highlight {
-  background-color: var(--primary-highlight);
+.bg-green-5, .bg-green.c5 {
+  background-color: var(--dust-grey);
+  color: #000;
 }
-.secondary {
-  background-color: var(--secondary);
+.bg-blue-1, .bg-blue.c1, .bg-blue,
+.bg-blue a, .bg-blue button,
+a.bg-blue, button.bg-blue
+.w3-bar.bg-blue a, .w3-bar.bg-blue button {
+  background-color: var(--deep-twilight);
+  color: var(--frosted-blue);
 }
-.secondary-color {
-  background-color: var(--secondary-color);
+.bg-blue-2, .bg-blue.c2,
+.bg-blue.active, .bg-blue .active, .w3-bar.bg-blue .active {
+  background-color: var(--bright-teal-blue);
+  color: #fff;
 }
-.secondary-accent, .secondary.active {
-  background-color: var(--secondary-accent);
+.bg-blue-3, .bg-blue.c3,
+a.bg-blue:hover, button.bg-blue:hover
+.bg-blue a:hover, .bg-blue button:hover {
+  background-color: var(--turquoise-surf);
+  color: #000;
 }
-.secondary-highlight {
-  background-color: var(--secondary-highlight);
+.bg-blue-4, .bg-blue.c4 {
+  background-color: var(--frosted-blue);
+  color: #000;
 }
-.text-primary {
-  color: var(--primary);
+.bg-blue-5, .bg-blue.c5 {
+  background-color: var(--light-cyan);
+  color: #000;
 }
-.text-primary-color {
-  color: var(--primary-color);
+.bg-transparent {
+  background-color: #0000 !important;
 }
-.text-primary-accent {
-  color: var(--primary-accent);
+
+.fg-brown-1 {
+  color: var(--coffee-bean);
 }
-.text-primary-highlight {
-  color: var(--primary-highlight);
+.fg-brown-2 {
+  color: var(--toffee-brown);
 }
-.text-secondary {
-  color: var(--secondary);
+.fg-brown-3 {
+  color: var(--copper);
 }
-.text-secondary-color {
-  color: var(--secondary-color);
+.fg-brown-4 {
+  color: var(--sandy-clay);
 }
-.text-secondary-accent {
-  color: var(--secondary-accent);
+.fg-brown-5 {
+  color: var(--navajo-white);
 }
-.text-secondary-highlight {
-  color: var(--secondary-highlight);
+.fg-green-1 {
+  color: var(--pine-teal);
 }
+.fg-green-2 {
+  color: var(--hunter-green);
+}
+.fg-green-3 {
+  color: var(--fern);
+}
+.fg-green-4 {
+  color: var(--dry-sage);
+}
+.fg-green-5 {
+  color: var(--dust-grey);
+}
+.fg-blue-1 {
+  color: var(--deep-twilight);
+}
+.fg-blue-2 {
+  color: var(--bright-teal-blue);
+}
+.fg-blue-3 {
+  color: var(--turquoise-surf);
+}
+.fg-blue-4 {
+  color: var(--frosted-blue);
+}
+.fg-blue-5 {
+  color: var(--light-cyan);
+}
+
+.border-brown {
+  border-width: 1px;
+  border-style: solid;
+  border-color: var(--coffee-bean);
+}
+.border-green {
+  border-width: 1px;
+  border-style: solid;
+  border-color: var(--pine-teal);
+}
+.border-blue {
+  border-width: 1px;
+  border-style: solid;
+  border-color: var(--deep-twilight);
+}
+
+a.active {
+  font-weight: bold;
+}
+.w3-bar-item.active {
+  background-color: var(--light-cyan);
+}
+
 
 
 /* Nav Bar */
-.w3-bar.primary {
-  background-color: var(--primary);
-}
 .w3-bar span {
   cursor: default;
-}
-
-.w3-bar.secondary {
-  background-color: var(--secondary);
-  padding-left: 32px;
 }
 
 .w3-bar a, .w3-bar span {
@@ -153,99 +272,28 @@ h3, h4 {
   display: inline-block;
 }
 
-.hs-button {
-  background-color: var(--primary);
-  color: var(--primary-color);
-  border: none;
+button {
   padding: 8px 16px;
   cursor: pointer;
 }
-.hs-button:hover {
-  background-color: var(--primary-highlight);
-  color: var(--primary);
-}
-.hs-button.active {
-  background-color: var(--primary-color);
-  color: var(--primary-accent);
-  font-weight: bold;
-  text-shadow: 0 0 8px var(--primary-accent);
+
+.padding-none {
+  padding: 1px;
 }
 
-.hs-button.secondary {
-  background-color: var(--secondary);
-  color: var(--secondary-color);
-}
-.hs-button.secondary:hover {
-  background-color: var(--secondary-highlight);
-  color: var(--secondary);
-}
-.hs-button.secondary.active {
-  background-color: var(--secondary-color);
-  color: var(--secondary-accent);
-  text-shadow: 0 0 8px var(--secondary-accent);
+.w3-margin-left {
+  margin-left: 8px !important;
 }
 
-
-
-/* Table */
-.HS-Table thead tr:nth-child(1) {
-    position: sticky;
-    top: 0;
-    background-color: var(--primary);
-    color: var(--primary-color);
-}
-.HS-Table tfoot tr:nth-child(1) {
-    background-color: var(--primary);
+.active.material-symbols-outlined,
+.active .material-symbols-outlined {
+  font-variation-settings:
+  'FILL' 1,
+  'wght' 400,
+  'GRAD' 0,
+  'opsz' 48
 }
 
-.HS-Table tbody tr:nth-child(even) {
-  /* Apply a different background color to even rows */
-  background-color: var(--primary)88;
-  background-color: #6b442388;
-}
-/* Optional: Add hover effect for better user experience */
-.HS-Table tbody tr:nth-child(odd) {
-  background-color: var(--primary)44;
-  background-color: #6b442344;
-}
-/* Optional: Add hover effect for better user experience */
-.HS-Table tbody tr:hover {
-  background-color: var(--primary)BB;
-  background-color: #6b4423BB;
-}
-table.HS-Table, .HS-Table tr {
-    border-color: var(--primary);
-}
-
-.HS-Table tfoot {
-  background-color: var(--primary)BB;
-  align-items: center;
-}
-.HS-Table button.active {
-  background-color: var(--primary)44;
-}
-.HS-Table button:hover {
-  background-color: var(--primary)BB;
-}
-/* Dropdown */
-.HS-Table .w3-dropdown-hover {
-  background-color: var(--primary);
-}
-.HS-Table button:hover {
-  background-color: var(--primary)BB;
-}
-.HS-Table th {
-  position: relative;
-}
-.HS-Table .asc,
-.HS-Table .desc {
-  box-sizing: border-box;
-  position: absolute;
-  right: 4px;
+.pointer {
   cursor: pointer;
-  line-height: 1;
-}
-
-.HS-Table.w3-bar {
-  text-align: center;
 }

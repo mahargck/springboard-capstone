@@ -1,0 +1,17 @@
+.Form_container {
+    z-index: 99;
+    background-color: #8888;
+    top: 0;
+    left: 0;
+    position: absolute;
+    height: 100vh;
+    width: 100vw;
+    
+    display: flex;
+    justify-content: center; /* Centers horizontally */
+    align-items: center;     /* Centers vertically */
+}
+.Form_container form {
+    width: 100%;
+    max-width: 400px;
+}

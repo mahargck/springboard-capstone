@@ -1,63 +1,68 @@
-import {
-  createBrowserRouter,
-  createRoutesFromElements,
-  Route,
-  RouterProvider
-} from 'react-router-dom'
 
-// pages
-import Home from './pages/Home'
-import NotFound from './pages/NotFound'
-import About from './pages/About'
-import Animal from './pages/Animal'
-import Chicken from './pages/Chicken'
-import Duck from './pages/Duck'
-import Geese from './pages/Geese'
-import Sheep from './pages/Sheep'
-import Pig from './pages/Pig'
-import Firewood from './pages/Firewood'
-import SetupJSON from './pages/SetupJSON'
-// These were from an instruction video.  I might recreate them in this capstone
-// import Faq from './pages/help/Faq'
-// import Contact from './pages/help/Contact'
+// Router
+import { RouterProvider } from 'react-router-dom'
+import router from './Router'
 
-// layouts
-import RootLayout from './layouts/RootLayout'
-import AnimalLayout from './layouts/AnimalLayout'
-import SetupLayout from './layouts/SetupLayout'
-// import HelpLayout from './layouts/HelpLayout'
+// Context
+import UserContext from './context/UserContext'
+import { useState, useEffect } from 'react'
+import {getUserFromLocalStorage} from './functions'
 
 // Styling
 import './App.css'
 
-const router = createBrowserRouter(
-  // To simplify the routing, I may decide to have a catch all that checks to see if the topic is in the DB
-  //  and if it is not, then it will send the path not found object.
-  createRoutesFromElements(
-    <Route path="/" element={<RootLayout />}>
-      <Route index element={<Home />} />
-      <Route path="about" element={<About />} />
+const defaultUser = {
+  user_id: null,
+  email: null,
+  plant_hardiness_zone: null,
+  is_admin: false
+};
 
-      <Route path="firewood" element={<Firewood />} />
-      <Route path="animals" element={<AnimalLayout />} >
-        <Route index element={<Animal />} />
-        <Route path="chicken" element={<Chicken />} />
-        <Route path="duck" element={<Duck />} />
-        <Route path="geese" element={<Geese />} />
-        <Route path="sheep" element={<Sheep />} />
-        <Route path="pig" element={<Pig />} />
-      </Route>
-      <Route path="setup" element={<SetupLayout />} >
-        <Route path="json" element={<SetupJSON />} />
-      </Route>
+export default function App() { 
+  const [user, setUser] = useState(getUserFromLocalStorage());
+  
+  useEffect(() => {
+    if (user.user_id) {
+        localStorage.setItem("user", JSON.stringify(user));
+    } else {
+        localStorage.removeItem("user");
+    }
+  }, [user])
 
-      <Route path="*" element={<NotFound />} />
-    </Route>
-  )
-)
-
-export default function App() {
+  function onLogin(data) {
+    if (data == null) {
+      onLogout();
+    } else {
+      setUser(data);
+    }
+  }
+  function onLogout() {
+    localStorage.removeItem("user");
+    setUser(defaultUser);data
+  }
+  function onUpdate(data) {
+    if(user.user_id == data.user_id) {
+      setUser({...user, 
+        plant_hardiness_zone:data.plant_hardiness_zone,
+        zip_code: data.zip_code,
+        state: data.state})
+    } else {
+      console.error("User Update Failed", "user_id mismatch")
+    }
+  }
   return (
-    <RouterProvider router={router} />
+    <UserContext.Provider value={{
+      user_id: user.user_id,
+      email: user.email,
+      plant_hardiness_zone: user.plant_hardiness_zone,
+      zip_code: user.zip_code,
+      state: user.state,
+      is_admin: user.is_admin,
+      onLogin: onLogin,
+      onLogout: onLogout,
+      onUpdate: onUpdate
+    }}>
+      <RouterProvider router={router} />
+    </UserContext.Provider>
   );
 }

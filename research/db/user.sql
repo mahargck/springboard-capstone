@@ -1,19 +1,23 @@
 DROP TABLE IF EXISTS users;
 CREATE TABLE users (
     user_id SERIAL PRIMARY KEY,
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    name VARCHAR(255) NOT NULL,
-    password VARCHAR(255) NOT NULL,
     email VARCHAR(255) UNIQUE NOT NULL,
+    password VARCHAR(255) NOT NULL,
     plant_hardiness_zone DECIMAL(2, 1),
     zip_code DECIMAL(5),
     state VARCHAR(2),
-    is_admin BOOLEAN DEFAULT FALSE
+    is_admin BOOLEAN DEFAULT FALSE,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    CONSTRAINT unique_email UNIQUE (email)
 );
+GRANT ALL PRIVILEGES ON users TO web;
+GRANT USAGE, SELECT ON SEQUENCE users_user_id_seq TO web;
+GRANT USAGE, SELECT ON ALL SEQUENCES IN SCHEMA public TO web;
 
-INSERT INTO users (name, password, email, plant_hardiness_zone, zip_code, state, is_admin) VALUES
-('Admin User', 'adminpassword', 'admin@example.com', 5.0, 12345, 'CA', TRUE),
-('Graham Kryger', 'password123', 'mahargck@gmail.com', null, null, 'WA', TRUE);
+-- Passwords should be hashed in a real application, but for simplicity, we are using plain text here.
+INSERT INTO users (email, password, plant_hardiness_zone, zip_code, state, is_admin) VALUES
+('Admin User', 'adminpassword', 5.0, 12345, 'CA', TRUE),
+('Graham Kryger', 'password123', null, null, 'WA', TRUE);
 
 Select * from users;
 

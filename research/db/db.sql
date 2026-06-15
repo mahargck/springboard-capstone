@@ -1,2 +1,3 @@
 DROP DATABASE IF EXISTS homesteadDB;
 CREATE DATABASE homesteadDB;
+GRANT CONNECT ON DATABASE homesteaddb to web;

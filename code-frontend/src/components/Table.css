@@ -1,0 +1,78 @@
+.table__header, .table__pagination, .table__source {
+  margin: 0 auto;
+  width: 100%;
+  max-width: 1200px;
+}
+.table__pagination {
+  text-align: center;
+}
+.table__source div {
+  height: auto;
+  max-height: 160px;
+  overflow-y: auto;
+}
+
+
+.table__content {
+  border-collapse: collapse;
+  border-spacing: 0;
+  margin: 0 auto;
+  border: 1px solid #00000088;
+  box-shadow: 0 4px 10px 0 rgba(0, 0, 0, 0.2), 0 4px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+.table__content thead tr {
+  border-bottom: 2px solid #00000088;
+  position: sticky;
+  top: 0;
+  text-align: left;
+}
+
+.table__content tbody tr {
+  border-top: 1px solid #00000088;
+}
+.table__content tbody tr:nth-child(odd) {
+  background-color: #ffffff22;
+}
+.table__content tbody tr:nth-child(even) {
+  background-color: #00000022;
+}
+.table__content tbody tr:hover {
+  background-color: #88888822;
+}
+.table__content tbody td {
+  padding: 0 2px;
+}
+
+
+.table__content .sort {
+  margin: 0 4px;
+  padding: -4px 0;
+  display: inline-block;
+  font-size: .75em;
+  cursor: pointer;
+  line-height: 1;
+  width: 14px;
+}
+.table__content .asc,
+.table__content .desc {
+  box-sizing: border-box;
+  position: absolute;
+  display: inline-block;
+  left: 4px;
+  cursor: pointer;
+  line-height: 1;
+  width: 20px;
+}
+
+.table__content .asc {
+  top: 4px;
+}
+.table__content .desc {
+  bottom: 4px;
+}
+
+/* Ensures no background for the filter dropdowns */
+.w3-dropdown-hover:first-child, .w3-dropdown-click:hover {
+  background-color: #0000;
+}
