@@ -4,6 +4,8 @@ const topics = require('../models/topics.js');
 const router = Router();
 
 // Reset store (for testing purposes)
+// Future versions whill store data in a stored variable and parts are cleared as edits are made.
+// This is to make the API run faster.
 router.get('/reset', topics.reset);
 
 // Gets

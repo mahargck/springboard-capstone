@@ -53,7 +53,7 @@ describe('Table Component', () => {
     const element = screen.getByText('12')
     expect(element).toBeInTheDocument();
     expect(element.className).toEqual('w3-bar-item w3-button active')
-    
+
     const myButton = screen.getByText('25')
     await fireEvent.click(myButton);
     await new Promise((resolve) => setTimeout(resolve, 100));
@@ -101,7 +101,7 @@ describe('Table Component', () => {
   test('TableCategory click (1)', async () => {
     let mockReturn
     const mockFunction = jest.fn().mockImplementation((data) => mockReturn = data);
-    
+
     const { container } = render(<TableCategory header={[{isvisible: true, category: "Cow"}]} onCategory={mockFunction}/>);
     expect(container).toBeInTheDocument();
     expect(screen.getByText('Category:')).toBeInTheDocument();
@@ -120,7 +120,7 @@ describe('Table Component', () => {
   test('TableCategory click (2)', async () => {
     let mockReturn
     const mockFunction = jest.fn().mockImplementation((data) => mockReturn = data);
-    
+
     const { container } = render(<TableCategory header={[{isvisible: true, category: "Cow"}]} category={[null, "Cow"]} onCategory={mockFunction}/>);
     expect(container).toBeInTheDocument();
     expect(screen.getByText('Category:')).toBeInTheDocument();
@@ -150,7 +150,7 @@ describe('Table Component', () => {
   test('TableSort click (Asc)', async () => {
     let mockReturn
     const mockFunction = jest.fn().mockImplementation((data, order) => mockReturn = [data, order]);
-    
+
     const { container } = render(<TableSort header={"Cow"} onSort={mockFunction}/>);
     expect(container).toBeInTheDocument();
 
@@ -165,7 +165,7 @@ describe('Table Component', () => {
   test('TableSort click (Desc)', async () => {
     let mockReturn
     const mockFunction = jest.fn().mockImplementation((data, order) => mockReturn = [data, order]);
-    
+
     const { container } = render(<TableSort header={"Cow"} onSort={mockFunction}/>);
     expect(container).toBeInTheDocument();
 
@@ -321,7 +321,7 @@ describe('Table Component', () => {
     expect(mockFunction).toHaveBeenCalledTimes(1);
     expect(mockReturn).toEqual(12)
   });
-  
+
   test('TableSource renders', () => {
     const { container } = render(<TableSource />);
     expect(container).toBeInTheDocument();
@@ -534,7 +534,7 @@ describe('Table Component', () => {
   test('Table Edit (2) click', async () => {
     let mockReturn
     const mockFunction = jest.fn().mockImplementation((data) => mockReturn = data);
-    
+
     const json = {data: [{id: 1, name: "Cow"}], header: [{key: 'name', name: "Name"}]}
     const { container } = render(<Table json={json} isEdit onClick={mockFunction} />);
     expect(screen.queryAllByTitle('Is Edit')).toHaveLength(1);
@@ -544,7 +544,7 @@ describe('Table Component', () => {
     expect(element).toBeInTheDocument();
     await fireEvent.click(element);
     await new Promise((resolve) => setTimeout(resolve, 100));
-    
+
     expect(JSON.stringify(mockReturn)).toEqual(JSON.stringify({id: 1, action: "edit" }))
     expect(mockFunction).toHaveBeenCalledTimes(1);
   });

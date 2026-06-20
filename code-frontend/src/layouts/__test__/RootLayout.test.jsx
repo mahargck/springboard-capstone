@@ -16,7 +16,7 @@ describe('RootLayout Component', () => {
   afterAll(() => {
     console.error = originalError; // Restore original console
   });
-  
+
   const oldFetch = global.fetch;
   let container;
   beforeEach(() => {
@@ -33,7 +33,7 @@ describe('RootLayout Component', () => {
   });
 
   const mockData = ["ABC", "XYZ"];
-  
+
   test('fetch Divisions (0)', async () => {
     const fnct = jest.fn()
       .mockResolvedValueOnce({ json: async () => ([]) })

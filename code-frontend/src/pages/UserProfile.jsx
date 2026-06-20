@@ -191,16 +191,16 @@ export default function UserProfile() {
                 <span className="material-symbols-outlined w3-left">
                   info
                 </span>
-                {error.message}
+                <span>{error.message}</span>
               </p>
             </div>
           )}
           {(formMode=="Update") && (
             <div className='w3-col m6 w3-padding-small'>
               <form
-                  onSubmit={handleSubmitUpdate}
                   className='border-blue w3-card w3-padding bg-blue-c5'
-                  style={{maxWidth: "400px", margin: "0 auto"}}>
+                  style={{maxWidth: "400px", margin: "0 auto"}}
+                  onSubmit={handleSubmitUpdate} >
 
                 <a
                     className="material-symbols-outlined w3-right bg-blue w3-round"
@@ -274,7 +274,7 @@ export default function UserProfile() {
                 )}
 
                 <div className='w3-center'>
-                  <button className="bg-blue" type="submit">Update Location</button>
+                  <button className="bg-blue" title="Update Location" type="submit">Update Location</button>
                 </div>
               </form>
             </div>

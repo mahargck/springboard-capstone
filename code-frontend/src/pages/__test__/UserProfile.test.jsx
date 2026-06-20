@@ -160,6 +160,9 @@ describe('UserProfile Component', () => {
     expect(screen.queryAllByText("Successfully changed password.")).toHaveLength(0)
   })
   test.skip('Form Location Simple', async () => {
+    // This is not triggering the fetch mocking
+    let mockReturn
+    const mockFunction = jest.fn().mockImplementation((data) => mockReturn = data);
     const mockJest = jest.fn()
       // Update
       .mockResolvedValueOnce({ json: async () => ({
@@ -177,7 +180,7 @@ describe('UserProfile Component', () => {
     act(() => {
       createRoot(container)
         .render((
-          <UserContext.Provider value={{user_id: 123, onUpdate:()=>{}}}>
+          <UserContext.Provider value={{user_id: 123, onUpdate: {mockFunction}}}>
               <MemoryRouter initialEntries={['/profile']}>
                 <UserProfile />
               </MemoryRouter>
@@ -188,7 +191,7 @@ describe('UserProfile Component', () => {
     const myButton = screen.getByText("Change Location");
     expect(myButton).toBeInTheDocument();
     await userEvent.click(myButton);
-    
+
     await new Promise((resolve) => setTimeout(resolve, 100));
 
     const myButton2 = screen.getByTitle("Update Location");
@@ -196,7 +199,8 @@ describe('UserProfile Component', () => {
     await userEvent.click(myButton2);
     await new Promise((resolve) => setTimeout(resolve, 100));
     expect(mockJest).toHaveBeenCalledTimes(1);
-    
+    expect(mockFunction).toHaveBeenCalledTimes(1);
+
     expect(screen.queryAllByText("Update Location")).toHaveLength(0)
     expect(screen.queryAllByText("Successfully updated location.")).toHaveLength(1)
     expect(screen.queryAllByTitle("Update Message")).toHaveLength(1)
@@ -252,7 +256,7 @@ describe('UserProfile Component', () => {
     await userEvent.click(myButton2);
     await new Promise((resolve) => setTimeout(resolve, 100));
     expect(mockJest).toHaveBeenCalledTimes(3);
-    
+
     expect(screen.queryAllByText("Update Location")).toHaveLength(0)
     expect(screen.queryAllByText("Successfully updated location.")).toHaveLength(1)
     expect(screen.queryAllByTitle("Update Message")).toHaveLength(1)

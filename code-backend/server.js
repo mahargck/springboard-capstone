@@ -11,11 +11,9 @@ const userRoutes = require('./routes/userRoutes.js');
 const zipcodes = require('./USCities.json');
 const app = express();
 
-// const { list_data } =require('./data');
 const ErrorExpress = require('./errorExpress')
 
 const jwt = require('jsonwebtoken');
-// require('dotenv').config();
 
 // middleware
 app.use(cors()); // This enables CORS for all routes
@@ -39,14 +37,6 @@ app.get('/zip_code/:zip_code', (req, res) => {
     }
     return res.status(404).send({ error: "Zip code not found" });
 });
-
-
-app.get('/cookie', (req, res) => {
-    res.cookie('test', 'test_cookie_value', { maxAge: cookieMaxAge * 1000 });
-    res.send("Cookie set");
-});
-
-
 
 // Catch-all error handler
 // app.use((req, res, next) => {

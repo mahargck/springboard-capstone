@@ -64,7 +64,7 @@ describe('Fetch', () => {
     const mockJest = jest.fn()
       .mockResolvedValue({ json: async () => (["fetchDivisionTopicId Data"])})
     global.fetch = mockJest
-    
+
     expect(fetchDivisionTopicId("Division")).rejects.toThrow("Missing Topic")
     expect(mockJest).toHaveBeenCalledTimes(0);
   })
@@ -192,7 +192,7 @@ describe('Fetch', () => {
     const mockJest = jest.fn()
       .mockResolvedValue({ json: async () => ("fetchZipCode Data")})
     global.fetch = mockJest
-    
+
     expect(fetchZipCode()).rejects.toThrow("Missing Zip Code");
     expect(mockJest).toHaveBeenCalledTimes(0);
   })
@@ -224,7 +224,7 @@ describe('Fetch', () => {
     const mockJest = jest.fn()
       .mockResolvedValue({ json: async () => ("fetchUserLogin Data")})
     global.fetch = mockJest
-    
+
     expect(fetchUserLogin()).rejects.toThrow("Missing data");
     expect(mockJest).toHaveBeenCalledTimes(0);
   })
@@ -232,7 +232,7 @@ describe('Fetch', () => {
     const mockJest = jest.fn()
       .mockResolvedValue({ json: async () => ("fetchUserLogin Data")})
     global.fetch = mockJest
-    
+
     expect(fetchUserLogin({})).rejects.toThrow("Missing email");
     expect(mockJest).toHaveBeenCalledTimes(0);
   })
@@ -240,7 +240,7 @@ describe('Fetch', () => {
     const mockJest = jest.fn()
       .mockResolvedValue({ json: async () => ("fetchUserLogin Data")})
     global.fetch = mockJest
-    
+
     expect(fetchUserLogin({email: "email"})).rejects.toThrow("Missing password");
     expect(mockJest).toHaveBeenCalledTimes(0);
   })
@@ -266,7 +266,7 @@ describe('Fetch', () => {
     const mockJest = jest.fn()
       .mockResolvedValue({ json: async () => ("fetchUserRegister Data")})
     global.fetch = mockJest
-    
+
     expect(fetchUserRegister({})).rejects.toThrow("Missing email");
     expect(mockJest).toHaveBeenCalledTimes(0);
   })
@@ -274,7 +274,7 @@ describe('Fetch', () => {
     const mockJest = jest.fn()
       .mockResolvedValue({ json: async () => ("fetchUserRegister Data")})
     global.fetch = mockJest
-    
+
     expect(fetchUserRegister({email: "email"})).rejects.toThrow("Missing password");
     expect(mockJest).toHaveBeenCalledTimes(0);
   })
@@ -292,7 +292,7 @@ describe('Fetch', () => {
     const mockJest = jest.fn()
       .mockResolvedValue({ json: async () => ("fetchUserUpdate Data")})
     global.fetch = mockJest
-    
+
     expect(fetchUserUpdate()).rejects.toThrow("Missing data");
     expect(mockJest).toHaveBeenCalledTimes(0);
   })
@@ -300,7 +300,7 @@ describe('Fetch', () => {
     const mockJest = jest.fn()
       .mockResolvedValue({ json: async () => ("fetchUserUpdate Data")})
     global.fetch = mockJest
-    
+
     expect(fetchUserUpdate({})).rejects.toThrow("Missing user_id");
     expect(mockJest).toHaveBeenCalledTimes(0);
   })
@@ -318,7 +318,7 @@ describe('Fetch', () => {
     const mockJest = jest.fn()
       .mockResolvedValue({ json: async () => ("fetchUserReset Data")})
     global.fetch = mockJest
-    
+
     expect(fetchUserReset()).rejects.toThrow("Missing data");
     expect(mockJest).toHaveBeenCalledTimes(0);
   })
@@ -326,7 +326,7 @@ describe('Fetch', () => {
     const mockJest = jest.fn()
       .mockResolvedValue({ json: async () => ("fetchUserReset Data")})
     global.fetch = mockJest
-    
+
     expect(fetchUserReset({})).rejects.toThrow("Missing user_id");
     expect(mockJest).toHaveBeenCalledTimes(0);
   })
@@ -355,7 +355,7 @@ describe('Fetch', () => {
     expect(JSON.stringify(result)).toEqual(JSON.stringify("fetchUserReset Data"))
     expect(mockJest).toHaveBeenCalledTimes(1);
   })
-  
+
   it('fetchUserLogout', async () => {
     const mockJest = jest.fn()
       .mockResolvedValue({ json: async () => ("fetchUserLogout Data")})
@@ -369,7 +369,7 @@ describe('Fetch', () => {
     const mockJest = jest.fn()
       .mockResolvedValue({ json: async () => ("fetchUserItems Data")})
     global.fetch = mockJest
-    
+
     expect(fetchUserItems()).rejects.toThrow("Missing user_id");
     expect(mockJest).toHaveBeenCalledTimes(0);
   })
@@ -395,7 +395,7 @@ describe('Fetch', () => {
     const mockJest = jest.fn()
       .mockResolvedValue({ json: async () => ("fetchUserItems_Add Data")})
     global.fetch = mockJest
-    
+
     expect(fetchUserItems_Add(123)).rejects.toThrow("Missing item_id");
     expect(mockJest).toHaveBeenCalledTimes(0);
   })
@@ -421,7 +421,7 @@ describe('Fetch', () => {
     const mockJest = jest.fn()
       .mockResolvedValue({ json: async () => ("fetchUserItems_Comment Data")})
     global.fetch = mockJest
-    
+
     expect(fetchUserItems_Comment(123)).rejects.toThrow("Missing id");
     expect(mockJest).toHaveBeenCalledTimes(0);
   })
@@ -429,7 +429,7 @@ describe('Fetch', () => {
     const mockJest = jest.fn()
       .mockResolvedValue({ json: async () => ("fetchUserItems_Comment Data")})
     global.fetch = mockJest
-    
+
     expect(fetchUserItems_Comment(123, 456)).rejects.toThrow("Missing comments");
     expect(mockJest).toHaveBeenCalledTimes(0);
   })
@@ -455,7 +455,7 @@ describe('Fetch', () => {
     const mockJest = jest.fn()
       .mockResolvedValue({ json: async () => ("fetchUserItems_Delete Data")})
     global.fetch = mockJest
-    
+
     expect(fetchUserItems_Delete(123)).rejects.toThrow("Missing id");
     expect(mockJest).toHaveBeenCalledTimes(0);
   })

@@ -30,11 +30,11 @@ async function postSQLColumns(data) {
     const result = await db.one(['INSERT INTO "columns"',
         '(key, name, mouseovertext, datatype, issort, isfilter, isvisible, list, symbols, category, order_id, stylewidth)',
         'VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12)',
-        'RETURNING *;'].join(' '), 
+        'RETURNING *;'].join(' '),
         [
-            data.key, data.name, data.mouseovertext, data.datatype, 
-            data.issort, data.isfilter, data.isvisible, 
-            JSON.stringify(data.list), JSON.stringify(data.symbols), data.category, 
+            data.key, data.name, data.mouseovertext, data.datatype,
+            data.issort, data.isfilter, data.isvisible,
+            JSON.stringify(data.list), JSON.stringify(data.symbols), data.category,
             data.order_id, data.stylewidth
         ]);
     // Clear storage for columns
@@ -43,7 +43,7 @@ async function postSQLColumns(data) {
 }
 async function patchSQLColumns(data) {
     const result = await db.one(
-        'UPDATE "columns" SET ' + 
+        'UPDATE "columns" SET ' +
         [
             'key = $2',
             'name = $3',
@@ -60,10 +60,10 @@ async function patchSQLColumns(data) {
         ].join(", ") +
         ' WHERE id = $1 RETURNING *;',
         [   data.id,
-            data.key, data.name, data.mouseovertext, data.datatype, 
-            data.issort, data.isfilter, data.isvisible, 
-            JSON.stringify(data.list), JSON.stringify(data.symbols), data.category, 
-            data.order_id, data.stylewidth 
+            data.key, data.name, data.mouseovertext, data.datatype,
+            data.issort, data.isfilter, data.isvisible,
+            JSON.stringify(data.list), JSON.stringify(data.symbols), data.category,
+            data.order_id, data.stylewidth
         ]);
     // Clear storage for columns
     store.columns = undefined
@@ -107,11 +107,11 @@ async function postSQLTopic(data) {
     const result = await db.one(['INSERT INTO "topics" ',
         '(division, section, name, order_id, logo, description, isvisible, category)',
         'VALUES ($1, $2, $3, $4, $5, $6, $7, $8)',
-        'RETURNING *;'].join(' '), 
+        'RETURNING *;'].join(' '),
         [
             data.division, data.section, data.name,
-            data.order_id, data.logo, data.description, 
-            data.isvisible, data.category 
+            data.order_id, data.logo, data.description,
+            data.isvisible, data.category
         ]);
     // Clear storage for columns
     store.topics = {}
@@ -119,7 +119,7 @@ async function postSQLTopic(data) {
 }
 async function patchSQLTopic(data) {
     const result = await db.one(
-        'UPDATE "topics" SET ' + 
+        'UPDATE "topics" SET ' +
         [
             'division = $2',
             'section = $3',
@@ -134,8 +134,8 @@ async function patchSQLTopic(data) {
         ' WHERE id = $1 RETURNING *;',
         [   data.id,
             data.division, data.section, data.name,
-            data.order_id, data.logo, data.description, 
-            data.isvisible, data.category 
+            data.order_id, data.logo, data.description,
+            data.isvisible, data.category
         ]);
     // Clear storage for columns
     store.topics = {}
@@ -196,13 +196,13 @@ module.exports.getDivision = async (req, res, next) => {
     .catch((error) => {
         // Need to use ErrorExpress to send error message and status code
         console.error('ERROR:', error)
-        next(new ErrorExpress("Missing division value.  Follow the path:  /division", 400));
+        next(new ErrorExpress("Missing division value.", 400));
     });
 }
 module.exports.getDivisionId = async (req, res, next) => {
     const { division } = req.params;
     if (division == undefined) {
-        next(new ErrorExpress("Missing division value.  Follow the path:  /division/{division}", 400));
+        next(new ErrorExpress("Missing division value.", 400));
         return;
     }
     if (USE_STORE && store.division[division] !== undefined) {
@@ -358,7 +358,7 @@ async function postSQLItem(data) {
     const result = await db.one(['INSERT INTO "topic_item" ',
         '(topic_id, name, data)',
         'VALUES ($1, $2, $3)',
-        'RETURNING id, topic_id, name, data;'].join(' '), 
+        'RETURNING id, topic_id, name, data;'].join(' '),
         [data.topic_id, data.name, JSON.stringify(data.data)])
     // Clear storage for columns
     store.data = {}
@@ -366,14 +366,14 @@ async function postSQLItem(data) {
 }
 async function patchSQLItem(data) {
     const result = await db.oneOrNone(
-        'UPDATE "topic_item" SET ' + 
+        'UPDATE "topic_item" SET ' +
         [
             'name = $2',
             'data = $3',
         ].join(", ") +
         ' WHERE id = $1 RETURNING *;',
         [   data.id,
-            data.name, JSON.stringify(data.data) 
+            data.name, JSON.stringify(data.data)
         ]);
     // Clear storage for columns
     store.data = {}

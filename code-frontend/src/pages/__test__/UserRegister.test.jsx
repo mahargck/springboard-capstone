@@ -65,6 +65,7 @@ describe('UserRegister Component', () => {
     expect(screen.getByText("New User Registration")).toBeInTheDocument()
   })
   test.skip('Form Sucess', async () => {
+    // This is not triggering the fetch mocking
     const mockJest = jest.fn()
       .mockResolvedValue({ json: async () => (
         {
@@ -110,7 +111,8 @@ describe('UserRegister Component', () => {
     expect(myButton).toBeInTheDocument();
     userEvent.click(myButton);
     await new Promise((resolve) => setTimeout(resolve, 100));
-    expect(mockJest).toHaveBeenCalledTimes(1);
+    expect(screen.queryAllByTitle("Error")).toHaveLength(1)
+    // expect(mockJest).toHaveBeenCalledTimes(1);
 
     expect(screen.queryAllByTitle("New User")).toHaveLength(1)
     expect(screen.queryAllByTitle("Error")).toHaveLength(0)

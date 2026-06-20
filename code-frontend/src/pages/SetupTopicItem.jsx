@@ -73,7 +73,7 @@ export default function SetupTopicItem() {
     setIsLoading(true);
 
     try {
-      const response = fetchTopicFullId(form.topic_id)
+      const response = await fetchTopicFullId(form.topic_id)
       setJson(response)
     } catch (e) {
       if (e.name === "AbortError") {

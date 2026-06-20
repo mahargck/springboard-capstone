@@ -34,7 +34,7 @@ or
 
 - Recently viewed recipes
 
-Click on a recipe to get **just** the ingredients and instructions.  Skip the story behind the recipe. 
+Click on a recipe to get **just** the ingredients and instructions.  Skip the story behind the recipe.
 Add recipe to your menu; 'Save for Later', 'Calendar', 'Weekly', or 'Custom'.
 Adjust your serving change the 1x multiplier from 1x to 2x, 3x, or other.
 Click on your menu to get a shopping list.

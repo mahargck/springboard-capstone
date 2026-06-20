@@ -17,8 +17,8 @@ const rowList = [
 ]
 
 /**
- * This is the primary object for this capstone project.  
- * Display order: 
+ * This is the primary object for this capstone project.
+ * Display order:
  *  1. Header categories & Row Count
  *  2. Table
  *  3. Page
@@ -229,7 +229,7 @@ export default function Table ({
                                             <TableSort header={col.key} onSort={onSort} />
                                         )}
                                         {(col.isFilter || col.isfilter) && (
-                                            <TableFilter 
+                                            <TableFilter
                                                 key={"filter-header-" + col.key}
                                                 // Variables
                                                 col={col}
@@ -245,7 +245,7 @@ export default function Table ({
                         )}) }
                         {(user_id != null) &&
                             <th key={"table-col-bookmark"} style={{width: "64px", maxWidth: "64px"}} title="Bookmark">
-                                <TableFilter 
+                                <TableFilter
                                     key={"filter-header-bookmark"}
                                     // Variables
                                     filter={tblFilter}
@@ -261,7 +261,7 @@ export default function Table ({
                         }
                     </tr>
                 </thead>
-                
+
                 <tbody>
                     {json.data
                         .toSorted(dataSort)
@@ -279,7 +279,7 @@ export default function Table ({
                             )) }
                             {(user_id != null) &&
                                 <td
-                                    key={"table-row-" + idx + "-edit"} 
+                                    key={"table-row-" + idx + "-edit"}
                                     style={{}}>
                                         {rowBookmark(row.id)}
                                 </td>
@@ -299,7 +299,7 @@ export default function Table ({
                     )) }
                 </tbody>
             </table>
-                
+
             <TablePage
                 // Variables
                 row={tblRowStart}
@@ -307,7 +307,7 @@ export default function Table ({
                 rowCount={tblRowCount}
                 // Functions
                 gotoPage={gotoPage}/>
-                
+
             <TableSource sources={sources} />
         </>
     );
@@ -317,7 +317,7 @@ export function TableRowCount({rowCount=12, onChangeRowCount}) {
         <div className="w3-dropdown-hover w3-right"
             title="Row Count">
             <a className="bg-blue">Row Count &#x1F783;</a>
-            
+
             <div className={`w3-dropdown-content w3-bar-block w3-border`}>
                 {rowList.map(([num, text]) => (
                     <span
@@ -439,7 +439,7 @@ export function TableFilter({col, icon, filter={}, onFilter=()=>{}, isHeader=fal
                     className={`material-symbols-outlined w3-text-white bg-transparent ${(hasKey(col.key)) && "active"}`}                >
                     filter_alt
                 </span>
-                
+
                 <div className="w3-dropdown-content w3-bar-block w3-border w3-white">
                     {filterItem()}
                 </div>
@@ -448,7 +448,7 @@ export function TableFilter({col, icon, filter={}, onFilter=()=>{}, isHeader=fal
     }
     return (
         <div className="w3-dropdown-hover">
-            <button 
+            <button
                 className={`bg-blue ${(hasKey(col.key)) ? "active" : ""}`}
                 title="Filter">
                 {col.name} &#x1F783;

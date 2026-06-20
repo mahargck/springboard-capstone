@@ -40,7 +40,7 @@ export default function DivisionLayout() {
               <span style={{marginLeft: 32}} title="Section"><i>{proper(division)}:</i></span>
 
               {topics.map((topic) => (
-                <NavLink 
+                <NavLink
                   key={topic.id}
                   to={topic.name}
                 >

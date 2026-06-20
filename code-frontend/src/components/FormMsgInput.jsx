@@ -28,7 +28,7 @@ export default function FormMsgInput({ className = '', title=null, value='', onC
   }
   return (
     <div className='Form_container'>
-      <form 
+      <form
           onSubmit={handleSubmit}
           className={`${'border'+ className.split('-')[1]} w3-card w3-padding border-blue ${className}`}>
 

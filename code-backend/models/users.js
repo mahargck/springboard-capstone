@@ -15,7 +15,7 @@ async function hashPassword(password) {
     }
 }
 
-module.exports.create = async (req, res, next) => {
+module.exports.register = async (req, res, next) => {
     // Check body for email and password
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
@@ -24,7 +24,8 @@ module.exports.create = async (req, res, next) => {
         next(new ErrorExpress(errors.array()
             .map(error => error.msg), 400));
     } else {
-        const { email, password, plant_hardiness_zone, zip_code, state } = req.body;
+        const { email, password, plant_hardiness_zone, state } = req.body;
+        let { zip_code } = req.body;
         if (zip_code == "") zip_code = null;
         let hashedPassword;
         try {
@@ -36,7 +37,7 @@ module.exports.create = async (req, res, next) => {
 
         db.one(['INSERT INTO users (email, password, plant_hardiness_zone, zip_code, state)',
             'VALUES ($1, $2, $3, $4, $5)',
-            'RETURNING user_id, email, plant_hardiness_zone, zip_code, state;'].join(' '), 
+            'RETURNING user_id, email, plant_hardiness_zone, zip_code, state;'].join(' '),
             [email, hashedPassword, plant_hardiness_zone, zip_code, state])
         .then((data) => {
             res.send({ id: data.user_id, data, message: "User created successfully" });
@@ -57,11 +58,12 @@ module.exports.updateUser = async (req, res, next) => {
         next(new ErrorExpress(errors.array()
             .map(error => error.msg), 400));
     } else {
-        const { plant_hardiness_zone, zip_code, state, user_id } = req.body;
+        const { plant_hardiness_zone, state, user_id } = req.body;
+        let { zip_code } = req.body;
         if (zip_code == "") zip_code = null;
         if (state == "") state = null;
 
-        db.one('UPDATE users SET plant_hardiness_zone=$1, zip_code=$2, state=$3 WHERE user_id=$4 RETURNING user_id, plant_hardiness_zone, zip_code, state;', 
+        db.one('UPDATE users SET plant_hardiness_zone=$1, zip_code=$2, state=$3 WHERE user_id=$4 RETURNING user_id, plant_hardiness_zone, zip_code, state;',
             [plant_hardiness_zone, zip_code, state, user_id])
         .then((data) => {
             res.send({ id: data.user_id, data, message: "User updated successfully" });
@@ -88,16 +90,16 @@ module.exports.resetPassword = async (req, res, next) => {
             console.error('ERROR:', error)
             next(new ErrorExpress(error.message, 400));
         }
-        
+
         db.one('SELECT password FROM users WHERE user_id = $1', [user_id])
         .then((data) => {
             // Compare the provided password with the hashed password
             return bcrypt.compare(old_password, data.password).then((isMatch) => {
                 if (isMatch) {
-                    db.one('UPDATE users SET password=$1 WHERE user_id=$2 RETURNING user_id;',  
+                    db.one('UPDATE users SET password=$1 WHERE user_id=$2 RETURNING user_id;',
                         [hashedPassword, user_id])
                     .then((data) => {
-                        res.send({ id: data.user_id, message: "User created successfully" });
+                        res.send({ id: data.user_id, message: "User password successfully changed" });
                     })
                     .catch((error) => {
                         console.error('ERROR:', error)
@@ -125,7 +127,7 @@ module.exports.login = async (req, res, next) => {
     } else {
         const { email, password } = req.body;
         // Implementation for login logic
-        
+
         db.one('SELECT * FROM users WHERE email = $1', [email])
         .then((data) => {
             // Compare the provided password with the hashed password
@@ -143,13 +145,13 @@ module.exports.login = async (req, res, next) => {
                     });
                     res.send({ ...userData, message: "Login successful" });
                 } else {
-                    next(new ErrorExpress("Invalid email or password.  Follow the path:  /user/login", 400));
+                    next(new ErrorExpress("Invalid email or password.", 400));
                 }
             });
         })
         .catch((error) => {
             console.error('ERROR:', error)
-            next(new ErrorExpress("Error logging in user.  Follow the path:  /user/login", 400));
+            next(new ErrorExpress("Error logging in user.", 400));
         });
     }
 }
@@ -161,7 +163,7 @@ module.exports.logout = async (req, res, next) => {
 module.exports.items = async (req, res, next) => {
     const { user_id } = req.params;
 
-    db.manyOrNone('SELECT * FROM user_item WHERE user_id = $1;', 
+    db.manyOrNone('SELECT * FROM user_item WHERE user_id = $1;',
         [ user_id])
     .then((data) => {
         return res.send(data);
@@ -176,7 +178,7 @@ module.exports.items_add = async (req, res, next) => {
     const { user_id } = req.params;
     const { item_id } = req.body;
 
-    db.one('INSERT INTO user_item (user_id, item_id) VALUES ($1, $2) RETURNING id;', 
+    db.one('INSERT INTO user_item (user_id, item_id) VALUES ($1, $2) RETURNING id;',
         [ parseInt(user_id), item_id])
     .then((data) => {
         return res.send(data);
@@ -189,8 +191,8 @@ module.exports.items_add = async (req, res, next) => {
 module.exports.items_comment = async (req, res, next) => {
     const { user_id } = req.params;
     const { id, comments } = req.body;
-    
-    db.one('UPDATE user_item SET comments=$3 WHERE user_id=$1 AND id=$2 RETURNING id;',  
+
+    db.one('UPDATE user_item SET comments=$3 WHERE user_id=$1 AND id=$2 RETURNING id;',
         [ parseInt(user_id), id, comments])
     .then((data) => {
         return res.send(data);
@@ -204,7 +206,7 @@ module.exports.items_delete = async (req, res, next) => {
     const { user_id } = req.params;
     const { id } = req.body;
 
-    db.one('DELETE FROM user_item WHERE user_id = $1 AND id = $2 RETURNING id;', 
+    db.one('DELETE FROM user_item WHERE user_id = $1 AND id = $2 RETURNING id;',
         [ parseInt(user_id), id])
     .then((data) => {
         return res.send(data);

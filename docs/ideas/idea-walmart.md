@@ -3,7 +3,7 @@
 ## Title: **Walmart OPD Dashboard**
 
 ## Overview
-In the backroom of Walmart, in their OPD (Online Pickup and Delivery) department, Associates manage the shopping and delivery of online order.  To improve efficency, large monitors were added to display orders that need to work on.  
+In the backroom of Walmart, in their OPD (Online Pickup and Delivery) department, Associates manage the shopping and delivery of online order.  To improve efficency, large monitors were added to display orders that need to work on.
 
 What I am proposing, is a system that highlights particular orders and order totes to ensure the department does not fall behind and meets our hourly targets.
 
@@ -34,7 +34,7 @@ After this has been developed should be able to be easily modified to meet other
 - Manager
     - Assignment of tasks to associates
     - Track skills demonstrated by associates
-    - Auto assign tasks to asscociates based on skills. 
+    - Auto assign tasks to asscociates based on skills.
 
 ## Tech Stack
 
@@ -95,6 +95,6 @@ This will be a link available at the setup screen.  Here the manager can assign 
 2. Import department Schedule to get Associates and who is working for the week
     - Auto Mode: Assign Associates to tasks based on the skills
         - High skill value will be prioritized
-        - Low skill value for covering schedule lunch 
+        - Low skill value for covering schedule lunch
         - Medium skill value for after primary Associate finishes their shift
     - Manual Mode: Assign Associates to tasks based on the day and time 

@@ -9,9 +9,8 @@ CREATE TABLE user_item (
 GRANT ALL PRIVILEGES ON user_item TO web;
 GRANT USAGE, SELECT ON SEQUENCE user_item_id_seq TO web;
 
-
-INSERT INTO user_item (user_id, item_id, qty, comments) VALUES
-(1, 1, 2, 'Planted in the backyard'),
-(1, 2, 5, 'Used for firewood'),
-(2, 1, 1, 'Planted in the front yard');
-
+-- Example Data
+INSERT INTO user_item (user_id, item_id, comments) VALUES
+(1, 1, 'Planted in the backyard'),
+(1, 2, 'Used for firewood'),
+(2, 1, 'Planted in the front yard');

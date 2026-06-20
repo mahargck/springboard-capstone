@@ -5,7 +5,7 @@ class ErrorExpress extends Error {
         this.status = status;
         // console.error(this.stack)
         console.error(
-            "ErrorExpress created with message:", message, 
+            "ErrorExpress created with message:", message,
             "and status:", status);
     }
 }

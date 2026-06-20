@@ -32,32 +32,32 @@ describe('FormList Component', () => {
     expect(screen.queryAllByText('sort_by_alpha')).toHaveLength(0);
     expect(screen.queryAllByText('123')).toHaveLength(1);
   });
-  
+
   test('Number - sort Asc', async () => {
     let value = []
     const mockFunction = jest.fn().mockImplementation((data) => value = [...data]);
-    
+
     render(<FormList id="test" list={[2, 1]} dataType="number" onUpdate={mockFunction} />);
-  
+
     const buttonElement = screen.getByTitle("Sort Ascending");
     expect(buttonElement).toBeInTheDocument();
     fireEvent.click(buttonElement);
     await new Promise((resolve) => setTimeout(resolve, 100));
-  
+
     expect(mockFunction).toHaveBeenCalledTimes(1);
     expect(JSON.stringify(value)).toEqual(JSON.stringify([1,2]));
   });
   test('Number - sort Desc', async () => {
     let value = []
     const mockFunction = jest.fn().mockImplementation((data) => value = [...data]);
-    
+
     render(<FormList id="test" list={[1, 2]} dataType="number" onUpdate={mockFunction} />);
-  
+
     const buttonElement = screen.getByTitle("Sort Descending");
     expect(buttonElement).toBeInTheDocument();
     fireEvent.click(buttonElement);
     await new Promise((resolve) => setTimeout(resolve, 100));
-  
+
     expect(mockFunction).toHaveBeenCalledTimes(1);
     expect(JSON.stringify(value)).toEqual(JSON.stringify([2, 1]));
   });
@@ -70,28 +70,28 @@ describe('FormList Component', () => {
   test('String - sort Asc', async () => {
     let value = []
     const mockFunction = jest.fn().mockImplementation((data) => value = [...data]);
-    
+
     render(<FormList id="test" list={["zyx", "abc"]} dataType="string" onUpdate={mockFunction} />);
-  
+
     const buttonElement = screen.getByTitle("Sort Ascending");
     expect(buttonElement).toBeInTheDocument();
     fireEvent.click(buttonElement);
     await new Promise((resolve) => setTimeout(resolve, 100));
-  
+
     expect(mockFunction).toHaveBeenCalledTimes(1);
     expect(JSON.stringify(value)).toEqual(JSON.stringify(["abc", "zyx"]));
   });
   test('String - sort Desc', async () => {
     let value = []
     const mockFunction = jest.fn().mockImplementation((data) => value = [...data]);
-    
+
     render(<FormList id="test" list={["abc", "zyx"]} dataType="string" onUpdate={mockFunction} />);
-  
+
     const buttonElement = screen.getByTitle("Sort Descending");
     expect(buttonElement).toBeInTheDocument();
     fireEvent.click(buttonElement);
     await new Promise((resolve) => setTimeout(resolve, 100));
-  
+
     expect(mockFunction).toHaveBeenCalledTimes(1);
     expect(JSON.stringify(value)).toEqual(JSON.stringify(["zyx", "abc"]));
   });
@@ -99,13 +99,13 @@ describe('FormList Component', () => {
   test('Number - Remove (1)', async () => {
     let value = []
     const mockFunction = jest.fn().mockImplementation((data) => value = [...data]);
-    
+
     render(<FormList id="test" list={[1, 2]} dataType="number" onUpdate={mockFunction} />);
-  
+
     const buttonElement = screen.getAllByTitle("Remove List Item");
     fireEvent.click(buttonElement[0]);
     await new Promise((resolve) => setTimeout(resolve, 100));
-  
+
     expect(mockFunction).toHaveBeenCalledTimes(1);
     expect(JSON.stringify(value)).toEqual(JSON.stringify([2]));
   });
@@ -113,13 +113,13 @@ describe('FormList Component', () => {
   test('Number - Remove (2)', async () => {
     let value = []
     const mockFunction = jest.fn().mockImplementation((data) => value = [...data]);
-    
+
     render(<FormList id="test" list={[1, 2]} dataType="number" onUpdate={mockFunction} />);
-  
+
     const buttonElement = screen.getAllByTitle("Remove List Item");
     fireEvent.click(buttonElement[1]);
     await new Promise((resolve) => setTimeout(resolve, 100));
-  
+
     expect(mockFunction).toHaveBeenCalledTimes(1);
     expect(JSON.stringify(value)).toEqual(JSON.stringify([1]));
   });

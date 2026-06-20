@@ -26,17 +26,17 @@ describe('SetupTopicItem Component', () => {
     render(<FormItem onSubmit={mockFunction} />);
     expect(screen.getByText('Item Property')).toBeInTheDocument()
     expect(screen.getByText('(New Item)')).toBeInTheDocument()
-    
+
     let inputElement = screen.getByTitle('Name');
     expect(inputElement).toHaveValue('');
     await userEvent.type(inputElement, 'Cow');
     expect(inputElement).toHaveValue('Cow');
-    
+
     const submitElement = screen.getByTitle('Update');
     expect(submitElement).toBeInTheDocument();
     userEvent.click(submitElement);
     await new Promise((resolve) => setTimeout(resolve, 100));
-    
+
     expect(mockFunction).toHaveBeenCalledTimes(1);
     expect(JSON.stringify(mockReturn)).toEqual(JSON.stringify({
       id: 0,
@@ -55,7 +55,7 @@ describe('SetupTopicItem Component', () => {
     expect(submitElement).toBeInTheDocument();
     userEvent.click(submitElement);
     await new Promise((resolve) => setTimeout(resolve, 100));
-    
+
     expect(mockFunction).toHaveBeenCalledTimes(0);
   });
 

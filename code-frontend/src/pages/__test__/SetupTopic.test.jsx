@@ -32,7 +32,7 @@ describe('SetupTopic Component', () => {
     expect(closeElement).toBeInTheDocument();
     userEvent.click(closeElement);
     await new Promise((resolve) => setTimeout(resolve, 100));
-    
+
     expect(mockFunction).toHaveBeenCalledTimes(1);
   });
   test('FormTopic input', async () => {
@@ -87,7 +87,7 @@ describe('SetupTopic Component', () => {
     expect(submitElement).toBeInTheDocument();
     userEvent.click(submitElement);
     await new Promise((resolve) => setTimeout(resolve, 100));
-    
+
     expect(mockFunction).toHaveBeenCalledTimes(1);
     expect(JSON.stringify(mockReturn)).toEqual(JSON.stringify({
       topic_id: 0,
@@ -116,7 +116,7 @@ describe('SetupTopic Component', () => {
     render(<SetupTopic />);
     expect(screen.getByText('Topic List')).toBeInTheDocument()
     await new Promise((resolve) => setTimeout(resolve, 100));
-    
+
     const submitElement = screen.getByTitle('Edit Item');
     expect(submitElement).toBeInTheDocument();
     userEvent.click(submitElement);

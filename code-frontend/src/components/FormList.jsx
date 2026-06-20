@@ -18,7 +18,7 @@ const formDefault = {listValue: ""};
 export default function FormList({id, list=[], listDropdown=[], listSymbols={}, dataType="string", onUpdate}) {
   if (id == undefined) return
   const [form, setForm] = useState({...formDefault});
-  
+
   function handleChange(e) {
     const {name, value} = e.target;
     setForm({...form, [name]: value})

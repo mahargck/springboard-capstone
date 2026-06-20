@@ -17,7 +17,7 @@ describe('Container Component', () => {
     const elements = container.getElementsByClassName('container');
     expect(elements.length).toEqual(1);
     expect(elements[0]).toHaveClass('container');
-    
+
     expect(screen.getByText('Hello')).toBeInTheDocument();
   });
   test('padding', () => {

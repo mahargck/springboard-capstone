@@ -16,7 +16,7 @@ describe('DivisionLayout Component', () => {
   afterAll(() => {
     console.error = originalError; // Restore original console
   });
-  
+
   const oldFetch = global.fetch;
   let container;
   beforeEach(() => {
@@ -31,7 +31,7 @@ describe('DivisionLayout Component', () => {
     document.body.removeChild(container);
     container = null;
   });
-  
+
   test('fetch Divisions (0)', async () => {
     const fnct = jest.fn()
       .mockResolvedValueOnce({ json: async () => ([]) })
@@ -54,7 +54,7 @@ describe('DivisionLayout Component', () => {
     });
     // Wait for fetch
     await new Promise((resolve) => setTimeout(resolve, 100));
-    
+
     expect(fnct).toHaveBeenCalledTimes(1);
 
     expect(screen.queryAllByRole('link')).toHaveLength(0)

@@ -4,7 +4,7 @@ export default function TopicHeader({ topic, link=false, noHeight=false }) {
   if (topic == null || topic == undefined) {
     return null;
   }
-  const style =(noHeight) ? {minHeight:"auto"} : {minHeight: "180px" } 
+  const style =(noHeight) ? {minHeight:"auto"} : {minHeight: "180px" }
   return (
     <div
       className="w3-padding-small w3-clear"

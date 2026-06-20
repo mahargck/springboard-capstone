@@ -161,7 +161,7 @@ export async function fetchUserRegister(data) {
   const {email, password, plant_hardiness_zone, zip_code, state} = data
   if (!email) throw new Error("Missing email")
   if (!password) throw new Error("Missing password")
-  const response = await fetch(`${BASE_URL}/user/create`, {
+  const response = await fetch(`${BASE_URL}/user/register`, {
     method: METHOD_POST,
     headers: {
       "Content-Type": "application/json",
@@ -178,7 +178,7 @@ export async function fetchUserUpdate(data) {
   if (!user_id) throw new Error("Missing user_id")
   if (zip_code != null && zip_code != "") zip_code = parseInt(zip_code)
   const response = await fetch(`${BASE_URL}/user/update`, {
-    method: METHOD_POST,
+    method: METHOD_PATCH,
     headers: {
       "Content-Type": "application/json",
     },
@@ -194,7 +194,7 @@ export async function fetchUserReset(data) {
   if (!old_password) throw new Error("Missing old_password")
   if (!password) throw new Error("Missing password")
   const response = await fetch(`${BASE_URL}/user/reset`, {
-    method: METHOD_POST,
+    method: METHOD_PATCH,
     headers: {
       "Content-Type": "application/json",
     },

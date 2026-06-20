@@ -14,10 +14,10 @@ GRANT ALL PRIVILEGES ON users TO web;
 GRANT USAGE, SELECT ON SEQUENCE users_user_id_seq TO web;
 GRANT USAGE, SELECT ON ALL SEQUENCES IN SCHEMA public TO web;
 
--- Passwords should be hashed in a real application, but for simplicity, we are using plain text here.
+-- Example Data
+-- Passwords should be hashed and applied in the Backend API.
 INSERT INTO users (email, password, plant_hardiness_zone, zip_code, state, is_admin) VALUES
 ('Admin User', 'adminpassword', 5.0, 12345, 'CA', TRUE),
 ('Graham Kryger', 'password123', null, null, 'WA', TRUE);
 
 Select * from users;
-

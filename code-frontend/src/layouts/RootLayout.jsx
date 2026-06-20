@@ -8,7 +8,7 @@ import {proper} from '../functions'
 export default function RootLayout() {
   const {user_id, email, is_admin} = useContext(UserContext);
   const [divisions, setDivisions] = useState([])
-  
+
   const fetchAPI = async () => {
     try {
       fetchDivisions()
@@ -41,7 +41,7 @@ export default function RootLayout() {
               <div className="w3-col s6 m12 w3-padding-small">
                 {email}
               </div>
-              
+
               <div className="w3-col s6 m12 w3-padding-small">
                 <span className="w3-bar bg-brown"
                   style={{width: "auto"}}>
@@ -65,16 +65,16 @@ export default function RootLayout() {
             </div>
           </div>
         </Container>
-        
+
         <Container className="bg-brown">
           <nav>
             <div className="w3-bar bg-brown">
               <NavLink to="/">Home</NavLink>
-              <NavLink to="about">About</NavLink>            
-              {is_admin && 
+              <NavLink to="about">About</NavLink>
+              {is_admin &&
                 <NavLink className="w3-right" to="setup">Setup</NavLink>
               }
-              
+
               <NavLink className="w3-right" to="faq">FAQ</NavLink>
               {divisions.map((division) => (
                 <NavLink key={division} to={`${division}`}>{division}</NavLink>
@@ -83,14 +83,14 @@ export default function RootLayout() {
           </nav>
         </Container>
       </header>
-      
+
       <main>
         <Outlet />
       </main>
 
       <footer>
         <Container>
-          Copyright 2026. All Rights Reserved. 
+          Copyright 2026. All Rights Reserved.
         </Container>
       </footer>
     </div>

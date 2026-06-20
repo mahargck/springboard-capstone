@@ -35,24 +35,23 @@ const router = createBrowserRouter(
   createRoutesFromElements(
     <Route path="/" element={<RootLayout />}>
       <Route index element={<Home />} />
-      
+
       <Route path="about" element={<About />} />
-    
       <Route path="faq" element={<FAQ />} />
-      
+
       <Route path="register" element={<UserRegister />} />
       <Route path="login" element={<UserLogin />} />
       <Route path="profile" element={<UserProfile />} />
       <Route path="bookmark" element={<UserBookmarks />} />
       <Route path="logout" element={<UserLogout />} />
-      
+
       <Route path="setup" element={<SetupLayout />} >
         <Route index element={<Setup />} />
         <Route path="column" element={<SetupColumn />} />
         <Route path="topic" element={<SetupTopic />} />
         <Route path="topic_item" element={<SetupTopicItem />} />
       </Route>
-      
+
       <Route path=":division" element={<DivisionLayout />}>
         <Route index element={<TopicDivision />} />
         <Route path=":topic" element={<Topic />} />

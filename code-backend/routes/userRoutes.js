@@ -6,25 +6,22 @@ const router = Router();
 
 
 // Validation middleware array
-const validateUserNewReset = [
+const validateEmail = [
   body('email')
     .isEmail().withMessage('Please provide a valid email')
-    .normalizeEmail(),
-  body('password')
-    .isLength({ min: 6 }).withMessage('Password must be at least 6 characters')
+    .normalizeEmail()
 ];
-const validateUserPassword = [
+const validatePassword = [
   body('password')
     .isLength({ min: 6 }).withMessage('Password must be at least 6 characters')
 ];
 
-
-router.post('/create', validateUserNewReset, users.create);
-router.post('/login', validateUserNewReset, users.login);
-router.post('/update', users.updateUser);
-router.post('/reset', validateUserPassword, users.resetPassword);
+// I know that I could combine the two but it this way it removes copied code.
+router.post('/register', validateEmail, validatePassword, users.register);
+router.post('/login', validateEmail, validatePassword, users.login);
+router.patch('/update', users.updateUser);
+router.patch('/reset', validatePassword, users.resetPassword);
 router.get('/logout', users.logout);
-// router.get('/register', users.register);
 
 router.get('/bookmarks/:user_id', users.items_bookmarks);
 router.get('/items/:user_id', users.items);
