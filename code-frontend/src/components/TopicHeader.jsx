@@ -1,7 +1,7 @@
 import { NavLink } from "react-router-dom";
 
-export default function TopicHeader({ topic, link, noHeight=false }) {
-  if (topic == null) {
+export default function TopicHeader({ topic, link=false, noHeight=false }) {
+  if (topic == null || topic == undefined) {
     return null;
   }
   const style =(noHeight) ? {minHeight:"auto"} : {minHeight: "180px" } 
@@ -18,7 +18,7 @@ export default function TopicHeader({ topic, link, noHeight=false }) {
         </h3>
       )}
       {(topic.description) &&
-        <p>{(link) ? topic.description.split("|")[0] : topic.description.replace("|", "")}</p>
+        <p>{(link !== false) ? topic.description.split("|")[0] : topic.description.replace("|", "")}</p>
       }
     </div>
   );

@@ -18,15 +18,17 @@ const defaultUser = {
   is_admin: false
 };
 
-export default function App() { 
+export default function App() {
   const [user, setUser] = useState(getUserFromLocalStorage());
-  
+  const [isLoaded, setIsLoaded] = useState(false);
+
   useEffect(() => {
     if (user.user_id) {
         localStorage.setItem("user", JSON.stringify(user));
     } else {
         localStorage.removeItem("user");
     }
+    setIsLoaded(true)
   }, [user])
 
   function onLogin(data) {
@@ -38,11 +40,11 @@ export default function App() {
   }
   function onLogout() {
     localStorage.removeItem("user");
-    setUser(defaultUser);data
+    setUser(defaultUser);
   }
   function onUpdate(data) {
     if(user.user_id == data.user_id) {
-      setUser({...user, 
+      setUser({...user,
         plant_hardiness_zone:data.plant_hardiness_zone,
         zip_code: data.zip_code,
         state: data.state})
@@ -50,6 +52,7 @@ export default function App() {
       console.error("User Update Failed", "user_id mismatch")
     }
   }
+  if (!isLoaded) return
   return (
     <UserContext.Provider value={{
       user_id: user.user_id,

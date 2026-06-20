@@ -1,135 +1,3 @@
-const BASE_PORT = 3000;
-const BASE_URL = `http://localhost:${BASE_PORT}`;
-
-const METHOD_GET = "GET";
-const METHOD_POST = "POST";
-const METHOD_PATCH = "PATCH";
-const METHOD_DELETE = "DELETE";
-
-
-export async function fetchDivisions() {    
-    const response = await fetch(`${BASE_URL}/division/`, {
-        method: METHOD_GET,
-    })
-    const result = (await response.json());
-    return result;
-};
-export async function fetchDivisionId(division = null) {
-    // if (division != null) division = division.toLowerCase()
-    const response = await fetch(`${BASE_URL}/division/${division}`, {
-        method: METHOD_GET,
-    })
-    const result = (await response.json());
-    return result;
-};
-export async function fetchDivisionTopicId(division, topic) {
-    const response = await fetch(`${BASE_URL}/division/${division}/${topic}`, {
-        method: METHOD_GET,
-    });
-    const result = (await response.json());
-    return result[0];
-};
-export async function fetchTopicFullId(topic_id) {
-    if (topic_id == undefined) throw new Error("Function fetchTopicFullId missing input")
-    const response = await fetch(`${BASE_URL}/topic/full/${topic_id}`, {
-        method: METHOD_GET,
-    });
-    const result = (await response.json());
-    return result;
-};
-export async function fetchColumns() {
-    const response = await fetch(`${BASE_URL}/columns`, {
-        method: METHOD_GET,
-    });
-    const result = (await response.json());
-    return result;
-};
-export async function fetchColumnsUpdate(data) {
-    const method = (data.id == 0) ? METHOD_POST: METHOD_PATCH
-    const response = await fetch(`${BASE_URL}/columns`, {
-        method: method,
-        headers: {
-            "Content-Type": "application/json",
-        },
-        body: JSON.stringify(data),
-    });
-    const result = (await response.json());
-    return result;
-};
-
-export async function fetchData(topic_id) {
-    const response = await fetch(`${BASE_URL}/topic/data/${topic_id}`, {
-        method: METHOD_GET,
-    });
-    const result = (await response.json());
-    return result;
-};
-
-export async function fetchTopics() {    
-    const response = await fetch(`${BASE_URL}/topic`, {
-        method: METHOD_GET,
-    })
-    const result = (await response.json());
-    return result;
-};
-export async function fetchTopicsUpdate(data) {
-    const method = (data.id == 0) ? METHOD_POST: METHOD_PATCH
-    const response = await fetch(`${BASE_URL}/topic`, {
-        method: method,
-        headers: {
-            "Content-Type": "application/json",
-        },
-        body: JSON.stringify(data),
-    });
-    const result = (await response.json());
-    return result;
-};
-export async function fetchItemUpdate(data) {
-    const method = (data.id == 0) ? METHOD_POST: METHOD_PATCH
-    const response = await fetch(`${BASE_URL}/topic/data`, {
-        method: method,
-        headers: {
-            "Content-Type": "application/json",
-        },
-        body: JSON.stringify(data),
-    });
-    const result = (await response.json());
-    return result;
-};
-
-export async function fetchZipCode(zip_code) {
-    // State
-    const result = {state: null, zone: null};
-    await fetch(`${BASE_URL}/zip_code/${zip_code}`, {
-        method: METHOD_GET,
-    })
-    .then((response) => response.json())
-    .then((data) => {
-        result.state = data.state;
-        result.city = data.city;
-        result.county = data.county;
-    })
-    .catch((error) => {
-        console.error('ERROR:', error)
-        throw new Error(`Problem pulling data:  /zip_code/${zip_code}`);
-    });
-
-    await fetch(`https://phzmapi.org/${zip_code}.json`, {
-        method: METHOD_GET,
-    })
-    .then((response) => response.json()) 
-    .then((data) => {
-        result.zone = stringToZone(data.zone);
-        result.temperature = data.temperature_range.split(" to ").map((temp) => parseInt(temp)) ;
-    })
-    .catch((error) => {
-        console.error('ERROR:', error)
-        throw new Error(`Problem pulling data:  /zip_code/${zip_code}`);
-    });
-
-    return result;
-};
-
 /**
  * Converts the hardiness zone to a number.
  * Example: 4a = 4.0, and 7b = 7.5
@@ -139,117 +7,36 @@ export async function fetchZipCode(zip_code) {
  * @returns {number} Numerical value.
  */
 export function stringToZone(str) {
-    const num = parseInt(str);
-    if (isNaN(num)) {
-        return null;
+    if (typeof str !== "string") return NaN
+    try {
+        const num = parseInt(str);
+        if (isNaN(num)) {
+            return NaN;
+        }
+        if (str.includes("b")) {
+            return num + 0.5;
+        }
+        return num
+    } catch(e) {
+        console.error(e)
+        return NaN
     }
-    if (str.includes("b")) {
-        return num + 0.5;
+};
+export function zoneToString(zone) {
+    if (!zone) return "Not specified";
+    if (zone == null) return "Not specified";
+    if (typeof zone == "string") return "Not specified";
+    if (typeof zone == "object") return "Not specified";
+
+    try {
+        if (zone == Math.floor(zone)) {
+            return zone.toString() + "a";
+        }
+        return Math.floor(zone).toString() + "b";
+    } catch(e) {
+        return "Not specified";
     }
-    return num;
-};
-
-export async function fetchUserLogin({email, password}) {    
-    const response = await fetch(`${BASE_URL}/user/login`, {
-        method: METHOD_POST,
-        headers: {
-            "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ email, password }),
-    })
-    const result = (await response.json());
-
-    if (result.user_id) {
-        localStorage.setItem("user", JSON.stringify(result));
-    }
-    return result;
-};
-export async function fetchUserRegister({email, password, plant_hardiness_zone, zip_code, state}) {    
-    const response = await fetch(`${BASE_URL}/user/create`, {
-        method: METHOD_POST,
-        headers: {
-            "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ email, password, plant_hardiness_zone, zip_code, state }),
-    })
-    const result = (await response.json());
-    return result;
-};
-export async function fetchUserUpdate({user_id, plant_hardiness_zone, zip_code, state}) {
-    if (zip_code != null && zip_code != "") zip_code = parseInt(zip_code)
-    const response = await fetch(`${BASE_URL}/user/update`, {
-        method: METHOD_POST,
-        headers: {
-            "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ user_id, plant_hardiness_zone, zip_code, state }),
-    })
-    const result = (await response.json());
-    return result;
-};
-export async function fetchUserReset({user_id, old_password, password}) {    
-    const response = await fetch(`${BASE_URL}/user/reset`, {
-        method: METHOD_POST,
-        headers: {
-            "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ user_id, old_password, password }),
-    })
-    const result = (await response.json());
-    return result;
-};
-export async function fetchUserLogout() {    
-    const response = await fetch(`${BASE_URL}/user/logout`, {
-        method: METHOD_GET,
-    })
-    localStorage.removeItem("user");
-    return response;
-};
-
-export async function fetchUserItems(user_id) {
-    const response = await fetch(`${BASE_URL}/user/items/${user_id}`, {
-        method: METHOD_GET,
-    });
-    const result = (await response.json());
-    return result;
 }
-export async function fetchUserItems_Add(user_id, item_id) {
-    const response = await fetch(`${BASE_URL}/user/items/${user_id}`, {
-        method: METHOD_POST,
-        headers: {"Content-Type": "application/json"},
-        body: JSON.stringify({ item_id }),
-    });
-    const result = (await response.json());
-    return result;
-}
-export async function fetchUserItems_Comment(user_id, id, comments) {
-    const response = await fetch(`${BASE_URL}/user/items/${user_id}`, {
-        method: METHOD_PATCH,
-        headers: {"Content-Type": "application/json"},
-        body: JSON.stringify({ id, comments }),
-    });
-    const result = (await response.json());
-    return result;
-}
-export async function fetchUserItems_Delete(user_id, id) {
-    const response = await fetch(`${BASE_URL}/user/items/${user_id}`, {
-        method: METHOD_DELETE,
-        headers: {"Content-Type": "application/json"},
-        body: JSON.stringify({ id }),
-    });
-    const result = (await response.json());
-    return result;
-}
-export async function fetchUserBookmarks(user_id) {
-    const response = await fetch(`${BASE_URL}/user/bookmarks/${user_id}`, {
-        method: METHOD_GET,
-    });
-    const result = (await response.json());
-    return result;
-}
-
-
-
 
 
 const defaultUser = {
@@ -286,7 +73,10 @@ export function sortObjString(key, a, b) {
  * @returns {string}
  */
 export function proper(str) {
-    return str.split().map((s) => (s.slice(0,1).toUpperCase() + s.slice(1).toLowerCase())).join(" ");
+  if (typeof str !== "string") return null
+  return str.split(" ").map((s) => (
+    s.slice(0,1).toUpperCase() + s.slice(1).toLowerCase())
+  ).join(" ");
 };
 
 /**
@@ -296,12 +86,27 @@ export function proper(str) {
  * @returns {object} object with replaced null values.
  */
 export function NullForm(obj) {
-    const formData = {...obj}
-    for (let d in formData) {
-      if (formData[d] === null) formData[d] = ""
+    if (obj === undefined) return undefined
+    if (obj === null)  return "".toString()
+    if (obj === "")  return ""
+    if (Array.isArray(obj)) {
+        const newObj = []
+        for (let i = 0; i < obj.length; i++) {
+            if (obj[i] == null) {
+                newObj.push("".toString())
+            } else {
+                newObj.push(obj[i])
+            }
+        }
+        return newObj
+    } else if (typeof obj == "object") {
+        const newObj = {...obj}
+        for (let k in newObj) {
+          if (newObj[k] === null) newObj[k] = ""
+        }
+        return newObj
     }
-    return formData
-
+    return obj
 }
 /**
  * This function replaces the empty string with an null value.
@@ -310,11 +115,27 @@ export function NullForm(obj) {
  * @returns {object} object with replaced empty string values.
  */
 export function FormNull(obj) {
-    const nullData = {...obj}
-    for (let d in nullData) {
-      if (nullData[d] === "") nullData[d] = null
+    if (obj === undefined) return undefined
+    if (obj === "") return null
+    if (obj === null)  return null
+    if (Array.isArray(obj)) {
+        const newObj = []
+        for (let i = 0; i < obj.length; i++) {
+            if (obj[i] == "") {
+                newObj.push(null)
+            } else {
+                newObj.push(obj[i])
+            }
+        }
+        return newObj
+    } else if (typeof obj == "object") {
+        const newObj = {...obj}
+        for (let k in newObj) {
+          if (newObj[k] === "") newObj[k] = null
+        }
+        return newObj
     }
-    return nullData
+    return obj
 }
 
 /**
@@ -326,8 +147,8 @@ export function FormNull(obj) {
  * @returns {string} display value to show user.
  */
 export function textDataType(datatype, value, symbols) {
-    // if (value == undefined) return
-    // if (Array.isArray(value)) return value.map((v) => textDataType(datatype, v, symbols)).join(" - ");
+    if (datatype == undefined) return
+    if (value == undefined) return
     if (Array.isArray(value)) {
         if (datatype == "number") {
             return value.map((v) => textDataType(datatype, v, symbols)).join(" - ");

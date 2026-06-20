@@ -1,0 +1,11 @@
+import { fireEvent, render, screen } from '@testing-library/react';
+import About from '../About';
+
+describe('About Component', () => {
+  test('renders', () => {
+    render(<About />);
+    expect(screen.getAllByRole('heading')).toHaveLength(6)
+    expect(screen.getAllByRole('paragraph')).toHaveLength(7)
+    expect(screen.getAllByRole('img')).toHaveLength(3)
+  });
+});

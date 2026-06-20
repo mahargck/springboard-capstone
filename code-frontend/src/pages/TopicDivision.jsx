@@ -1,8 +1,8 @@
 import { useParams } from "react-router-dom";
-import { use, useState } from 'react'
+import { useEffect, useState } from 'react'
 
-import { fetchDivisionId, proper } from '../functions';
-import { useEffect } from "react";
+import { fetchDivisionId } from '../fetch';
+import { proper } from '../functions';
 import Container from '../components/Container';
 import TopicHeader from '../components/TopicHeader';
 
@@ -15,39 +15,37 @@ export default function TopicDivision() {
   const [json, setJson] = useState({ missing: false})
   const [params, setParams] = useState(division);
 
+  useEffect(() => {
+    fetchAPI();
+  }, [params]);
+
   if (division != params) {
     setParams(division);
   }
 
-  useEffect(() => {
-    const fetchAPI = async () => {
-      setIsLoading(true);
+  const fetchAPI = async () => {
+    setIsLoading(true);
 
-      try {
-        fetchDivisionId(division)
-        .then((response) => {
-          if (response.length > 0) {
-            setJson(response)
-          } else {
-            setJson({missing: true})
-          }
-        });
-      } catch (e) {
-        if (e.name === "AbortError") {
-          console.error("Aborted", e);
-          setJson({ missing: true});
-          return;
-        }
-        
-        console.error("Error", e);
-        setError(e);
-      } finally {
-        setIsLoading(false);
+    try {
+      const response = await fetchDivisionId(division)
+      if (response.length > 0) {
+        setJson(response)
+      } else {
+        setJson({missing: true})
       }
-    };
+    } catch (e) {
+      if (e.name === "AbortError") {
+        console.error("Aborted", e);
+        setJson({ missing: true});
+        return;
+      }
 
-    fetchAPI();
-  }, [params]);
+      console.error("Error", e);
+      setError(e);
+    } finally {
+      setIsLoading(false);
+    }
+  };
 
   if (error) return (
     <div>Something went wrong! Please try again.</div>
@@ -68,15 +66,15 @@ export default function TopicDivision() {
   }
   return (
     <>
-      <Container className="bg-green-2" padding>
+      <Container className="bg-green-c2" padding>
         <h2>{proper(division)}</h2>
       </Container>
       {getSection().map((section) => (
         <div key={section}>
-          <Container className="bg-green-4" padding>
+          <Container className="bg-green-c4" padding>
             <h3>{section}</h3>
           </Container>
-          <Container className="bg-green-5">
+          <Container className="bg-green-c5">
             <div className="w3-row">
               {json.filter((item) => item.section==section).map((topic) => (
                 <div key={topic.name} className="w3-col m6 l4">

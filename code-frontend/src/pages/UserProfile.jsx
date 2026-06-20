@@ -1,8 +1,9 @@
-import { useNavigate } from 'react-router-dom';
 import { useState, useContext, useEffect } from 'react'
-import { fetchUserUpdate, fetchUserReset, fetchZipCode, states } from '../functions';
-import UserContext from '../context/UserContext'
+import { useNavigate } from 'react-router-dom';
 import Container from '../components/Container';
+import UserContext from '../context/UserContext'
+import { fetchUserReset, fetchUserUpdate, fetchZipCode } from '../fetch';
+import { states } from '../functions';
 
 const formDefault = {
   email: "",
@@ -30,6 +31,11 @@ export default function UserProfile() {
   const navigate = useNavigate();
 
   useEffect(() => {
+    if (!userProfile.user_id) {
+      navigate('/login');
+    }
+  }, [])
+  useEffect(() => {
     const newForm = {...formDefault};
     newForm.user_id = userProfile.user_id
     newForm.email = userProfile.email;
@@ -39,6 +45,8 @@ export default function UserProfile() {
     setForm(newForm);
     setError({...errorDefault, "message": error.message});
   }, [formMode]);
+
+  if (!userProfile.user_id) return
 
   function handleChange (e) {
     const {name, value} = e.target;
@@ -55,8 +63,8 @@ export default function UserProfile() {
     if (zip_code != null) {
       fetchZipCode(zip_code)
         .then((response) => {
-          setForm({...form,  
-            ["state"]: (response.state !== null) ? response.state : form.state, 
+          setForm({...form,
+            ["state"]: (response.state !== null) ? response.state : form.state,
             ["plant_hardiness_zone"]: (response.zone != null) ? response.zone : form.plant_hardiness_zone});
         })
         .catch((error) => {
@@ -69,7 +77,7 @@ export default function UserProfile() {
     fetchUserUpdate(form)
       .then((response) => {
         userProfile.onUpdate(response.data);
-        setError({...errorDefault, "message": "Successfully updated setting."});
+        setError({...errorDefault, "message": "Successfully updated location."});
         setFormMode(null)
       })
       .catch((error) => {
@@ -97,7 +105,7 @@ export default function UserProfile() {
   function registerSwitch() {
     setIsNewUser(!isNewUser);
   }
-  function hardinessZoneToText(zone) {
+  function zoneToString(zone) {
     if (zone == null || zone == "") {
       return "Not specified";
     }
@@ -117,15 +125,15 @@ export default function UserProfile() {
 
   return (
     <>
-      <Container className="bg-blue-2">
+      <Container className="bg-blue-c2">
         <h2>User Profile</h2>
       </Container>
-      <Container className="bg-blue-3">
+      <Container className="bg-blue-c3">
         <div className='w3-row'>
           <div className='w3-col m6 w3-padding-small'>
             <div>
               <label>Email:</label>
-              <div className='w3-input bg-blue-4'>
+              <div className='w3-input bg-blue-c4'>
                 {userProfile.email}
               </div>
             </div>
@@ -144,7 +152,7 @@ export default function UserProfile() {
             <div>
               <label>Zip Code:</label>
               <div
-                  className='w3-input bg-blue-4'
+                  className='w3-input bg-blue-c4'
                   onDoubleClick={() => setFormMode("Update")} >
                     {(userProfile.zip_code) ? userProfile.zip_code : <span style={{color: "#8888"}}>Unknown</span>}
               </div>
@@ -153,16 +161,16 @@ export default function UserProfile() {
             <div>
               <label>Hardiness Zone:</label>
               <div
-                  className='w3-input bg-blue-4'
+                  className='w3-input bg-blue-c4'
                   onDoubleClick={() => setFormMode("Update")} >
-                {(userProfile.plant_hardiness_zone) ? hardinessZoneToText(userProfile.plant_hardiness_zone) : <span style={{color: "#8888"}}>Unknown</span>}
+                {(userProfile.plant_hardiness_zone) ? zoneToString(userProfile.plant_hardiness_zone) : <span style={{color: "#8888"}}>Unknown</span>}
               </div>
             </div>
 
             <div>
               <label>State:</label>
               <div
-                  className='w3-input bg-blue-4'
+                  className='w3-input bg-blue-c4'
                   onDoubleClick={() => setFormMode("Update")} >
                 {(userProfile.state) ? stateToText(userProfile.state) : <span style={{color: "#8888"}}>Unknown</span>}
               </div>
@@ -172,49 +180,51 @@ export default function UserProfile() {
               <button
                   className='bg-blue'
                   onClick={() => setFormMode("Update")}>
-                Change Settings
+                Change Location
               </button>
             </div>
-            {(error.message) && (
-              <p>
+          </div>
+          {(error.message) && (
+            <div className='w3-col m6 w3-padding-small'
+                title="Update Message">
+              <p className='w3-padding-small w3-pale-blue w3-border w3-border-blue'>
                 <span className="material-symbols-outlined w3-left">
                   info
                 </span>
                 {error.message}
               </p>
-            )}
-          </div>
+            </div>
+          )}
           {(formMode=="Update") && (
             <div className='w3-col m6 w3-padding-small'>
-              <form 
+              <form
                   onSubmit={handleSubmitUpdate}
-                  className='w3-border w3-card w3-padding bg-blue-5'
+                  className='border-blue w3-card w3-padding bg-blue-c5'
                   style={{maxWidth: "400px", margin: "0 auto"}}>
 
-                <h3>Settings
-                  <a
-                      className="material-symbols-outlined w3-right bg-blue w3-round"
-                      style={{cursor: "pointer"}}
-                      onClick={() => setFormMode(null)} >
-                    close
-                  </a>
-                </h3>
+                <a
+                    className="material-symbols-outlined w3-right bg-blue w3-round"
+                    style={{cursor: "pointer"}}
+                    onClick={() => setFormMode(null)} >
+                  close
+                </a>
+                <h3>Location</h3>
 
                 <div>
                   <label htmlFor="zip_code">Zip Code:</label>
                   <input
-                      type="string"
-                      id="zip_code"
-                      name="zip_code"
                       className='w3-input'
-                      placeholder='12345'
-                      pattern="[0-9]{5}"
-                      minLength="5"
+                      id="zip_code"
                       maxLength="5"
+                      minLength="5"
+                      name="zip_code"
+                      pattern="[0-9]{5}"
+                      placeholder='12345'
+                      title='Zip Code'
+                      type="string"
                       value={form.zip_code}
                       onChange={handleChange}
-                      onBlur={handleZipCodeOnBlur}
-                      title='Must be 5 numbers long' />
+                      onBlur={handleZipCodeOnBlur} />
                 </div>
 
                 <div className='w3-panel w3-blue w3-border-blue w3-card-4 w3-round w3-padding-small'>
@@ -223,17 +233,17 @@ export default function UserProfile() {
                   </span>
                   Entering your zip code will automatically fill in your state and plant hardiness zone based on your location.
                 </div>
-                                
+
                 <div>
-                  <label htmlFor="plant_hardiness_zone">Hardiness Zone: {hardinessZoneToText(form.plant_hardiness_zone)}</label>
-                  <input 
-                    type="range" 
-                    id="plant_hardiness_zone"
-                    name="plant_hardiness_zone"
+                  <label htmlFor="plant_hardiness_zone">Hardiness Zone: {zoneToString(form.plant_hardiness_zone)}</label>
+                  <input
                     className='w3-input bg-blue'
-                    min="1"
+                    id="plant_hardiness_zone"
                     max="13.5"
+                    min="1"
+                    name="plant_hardiness_zone"
                     step="0.5"
+                    type="range"
                     value={form.plant_hardiness_zone}
                     onChange={handleChange} />
                 </div>
@@ -241,9 +251,9 @@ export default function UserProfile() {
                 <div>
                   <label htmlFor="state">State:</label>
                   <select
+                      className='w3-input'
                       id="state"
                       name="state"
-                      className='w3-input'
                       value={form.state}
                       onChange={handleChange} >
                     <option value="" disabled>Select a state</option>
@@ -264,67 +274,70 @@ export default function UserProfile() {
                 )}
 
                 <div className='w3-center'>
-                  <button className="bg-blue" type="submit">Update</button>
+                  <button className="bg-blue" type="submit">Update Location</button>
                 </div>
               </form>
             </div>
           )}
           {(formMode=="Password") && (
             <div className='w3-col m6 w3-padding-small'>
-              <form 
+              <form
                   onSubmit={handleSubmitPassword}
-                  className='w3-border w3-card w3-padding bg-blue-5'
+                  className='w3-card w3-padding bg-blue-c5 border-blue'
                   style={{maxWidth: "400px", margin: "0 auto"}}>
 
-                <h3>
-                  <a
-                      className="material-symbols-outlined w3-right bg-blue w3-round"
-                      style={{cursor: "pointer"}}
-                      onClick={() => setFormMode(null)} >
-                    close
-                  </a>
-                  Change Password
-                </h3>
+                <a
+                    className="material-symbols-outlined w3-right bg-blue w3-round"
+                    style={{cursor: "pointer"}}
+                    onClick={() => setFormMode(null)} >
+                  close
+                </a>
+                <h3>Change Password</h3>
 
                 <div>
                   <label htmlFor="old_password">Old Password:</label>
-                  <input  
-                      type="password"
-                      id="old_password"
-                      name="old_password"
+                  <input
                       className='w3-input'
-                      placeholder='e-i-e-i-o'
-                      value={form.old_password}
+                      id="old_password"
                       minLength="6"
+                      name="old_password"
+                      placeholder='e-i-e-i-o'
+                      title="Old Password"
+                      type="password"
+                      value={form.old_password}
                       onChange={handleChange}
                       required />
                 </div>
                 <hr />
                 <div>
                   <label htmlFor="password">New Password:</label>
-                  <input  
-                      type="password"
-                      id="password"
-                      name="password"
+                  <input
                       className='w3-input'
-                      placeholder=''
-                      value={form.password}
+                      id="password"
                       minLength="6"
+                      name="password"
+                      title="New Password"
+                      type="password"
+                      value={form.password}
                       onChange={handleChange}
                       required />
-                                    
+
                   <label htmlFor="password_confirm">Confirm New Password:</label>
-                  <input  
-                      type="password"
-                      id="password_confirm"
-                      name="password_confirm"
+                  <input
                       className='w3-input'
-                      value={form.password_confirm}
+                      id="password_confirm"
                       minLength="6"
+                      name="password_confirm"
+                      title="Confirm New Password"
+                      type="password"
+                      value={form.password_confirm}
                       onChange={handleChange}
                       required />
                   {form.password != form.password_confirm && (
-                    <p style={{color: "red"}}>
+                    <p
+                        className="w3-padding-small"
+                        style={{backgroundColor: "red"}}
+                        title="Password Mismatch">
                       <span className="material-symbols-outlined w3-left">
                         error
                       </span>
@@ -333,7 +346,8 @@ export default function UserProfile() {
                   )}
                 </div>
                 {(error.Password) && (
-                  <p style={{color: "red"}}>
+                  <p style={{color: "red"}}
+                    title="Password Invalid">
                     <span className="material-symbols-outlined w3-left">
                       error
                     </span>

@@ -11,11 +11,12 @@ const formDefault = {listValue: ""};
  * @param {array} list - List to display.
  * @param {array} listDropdown - Adds a select input for user.
  * @param {object} listSymbols - symbol to display
- * @param {string} datatype - Indicates the value type to use.
+ * @param {string} dataType - Indicates the value type to use.
  * @param {function} onUpdate - When there is a change to the list, it will return the new list
  * @returns {HTMLElement} .
  */
-export default function FormList({id, list=[], listDropdown=[], listSymbols={}, datatype="string", onUpdate}) {
+export default function FormList({id, list=[], listDropdown=[], listSymbols={}, dataType="string", onUpdate}) {
+  if (id == undefined) return
   const [form, setForm] = useState({...formDefault});
   
   function handleChange(e) {
@@ -53,10 +54,10 @@ export default function FormList({id, list=[], listDropdown=[], listSymbols={}, 
     const newList = list.toSorted((a,b) => {
       let v1 = a
       let v2 = b
-      if (datatype === "string") {
+      if (dataType === "string") {
           if (v1 == null) v1 = ""
           if (v2 == null) v2 = ""
-          return (sortOrder) ? v1.localeCompare(v2) : v2.localeCompare(v1);
+          return (sortOrder) ? v1.toString().localeCompare(v2) : v2.toString().localeCompare(v1);
       } else {
           if (v1 == null) v1 = 0
           if (v2 == null) v2 = 0
@@ -81,7 +82,7 @@ export default function FormList({id, list=[], listDropdown=[], listSymbols={}, 
             <th>
               <label htmlFor="listValue">
                 <span className='w3-left'>
-                  {(datatype == "number") ? (
+                  {(dataType == "number") ? (
                     <>
                       <span
                           className="material-symbols-outlined"
@@ -142,13 +143,13 @@ export default function FormList({id, list=[], listDropdown=[], listSymbols={}, 
           ))}
           <tr>
             <td className='w3-padding'>
-              {(datatype == "number") ? (
+              {(dataType == "number") ? (
                 <input
-                    type="number"
+                    className='w3-input'
                     id="listValue"
                     name="listValue"
-                    className='w3-input'
                     placeholder='#.##'
+                    type="number"
                     value={form.listValue}
                     onChange={handleChange}
                 />
@@ -158,20 +159,20 @@ export default function FormList({id, list=[], listDropdown=[], listSymbols={}, 
                     <div className='w3-row'>
                       <div className='w3-col s6'>
                         <input
-                            type="string"
+                            className='w3-input'
                             id="listValue"
                             name="listValue"
-                            className='w3-input'
+                            type="string"
                             value={form.listValue}
                             onChange={handleChange}
                         />
                       </div>
                       <div className='w3-col s6'>
                         <select
-                            type="string"
+                            className='w3-input'
                             id="listValue"
                             name="listValue"
-                            className='w3-input'
+                            type="string"
                             value={form.listValue}
                             onChange={handleChange}>
                               <option value="">-Select Column-</option>
@@ -185,10 +186,10 @@ export default function FormList({id, list=[], listDropdown=[], listSymbols={}, 
                     </div>
                   ) : (
                     <input
-                        type="string"
+                        className='w3-input'
                         id="listValue"
                         name="listValue"
-                        className='w3-input'
+                        type="string"
                         value={form.listValue}
                         onChange={handleChange}
                     />

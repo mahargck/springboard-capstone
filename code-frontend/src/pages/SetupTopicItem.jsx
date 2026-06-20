@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
-import { fetchColumns, fetchTopics, fetchTopicFullId, fetchItemUpdate, FormNull, NullForm, sortObjString, textDataType } from '../functions';
+import { fetchColumns, fetchTopics, fetchTopicFullId, fetchItemUpdate } from '../fetch';
+import { FormNull, NullForm, sortObjString, textDataType } from '../functions';
 import Container from '../components/Container';
 import FormList from '../components/FormList';
 import Table from '../components/Table'
@@ -16,7 +17,7 @@ export default function SetupTopicItem() {
   const [topics, setTopics] = useState([]);
   const [form, setForm] = useState({topic_id: "", source: ""});
   const [json, setJson] = useState(null);
-  
+
   const [error, setError] = useState();
   const [isLoading, setIsLoading] = useState(false);
   const [editItem, setEditItem] = useState(null);
@@ -45,54 +46,48 @@ export default function SetupTopicItem() {
       console.error("Error", e);
     } finally {}
   }
-  function getTopics() {
+  async function getTopics() {
     setIsLoading(true);
 
     try {
-      fetchTopics()
-      .then((response) => {
-        if (response.length > 0) {
-          setTopics(response.sort((a,b) => (sortObjString("name", a, b))))
-        } else {
-          setError({database: "No Topics available"})
-        }
-      });
+      const response = await fetchTopics()
+      if (response.length > 0) {
+        setTopics(response.sort((a,b) => (sortObjString("name", a, b))))
+      } else {
+        setError({database: "No Topics available"})
+      }
     } catch (e) {
       if (e.name === "AbortError") {
         console.error("Aborted", e);
         setError({database: response.error})
         return;
       }
-      
       console.error("Error", e);
     } finally {
       setIsLoading(false);
     }
   }
-  function getItems(autoClear=true) {
+  async function getItems(autoClear=true) {
     if (autoClear) setJson(null);
     if(isNaN(parseInt(form.topic_id))) return
     setIsLoading(true);
 
     try {
-      fetchTopicFullId(form.topic_id)
-      .then((response) => {
-        setJson(response)
-      });
+      const response = fetchTopicFullId(form.topic_id)
+      setJson(response)
     } catch (e) {
       if (e.name === "AbortError") {
         console.error("Aborted", e);
         setError({database: response.error})
         return;
       }
-      
       console.error("Error", e);
     } finally {
       setIsLoading(false);
     }
   }
   function onTableClick(data) {
-    setEditItem(json.data.filter((item) => (item.id == data))[0])
+    setEditItem(json.data.filter((item) => (item.id == data.id))[0])
   }
   function onTableUpdate(data) {
     // Replace "" with null
@@ -125,15 +120,15 @@ export default function SetupTopicItem() {
   }
   return (
     <>
-      <Container className="bg-blue c2" padding>
+      <Container className="bg-blue-c2" padding>
         <h2>Setup Topic Item</h2>
       </Container>
       {/* This uses to hide the table instead of removing it and then recreating it */}
       <div hidden={editItem}>
-        <Container className="bg-blue c3" padding>
+        <Container className="bg-blue-c3" padding>
           {(form.topic_id) && (
             <button
-              className='w3-right'
+              className='w3-right bg-blue'
               title="Add new Topic Item"
               onClick={onNewClick}
             >
@@ -147,18 +142,19 @@ export default function SetupTopicItem() {
             <div className='w3-col m6 w3-padding-small'>
               <label htmlFor="topic_id">Topic:</label>
               <select
-                  type="string"
+                  className='w3-input'
                   id="topic_id"
                   name="topic_id"
-                  className='w3-input'
+                  title="Topic"
+                  type="string"
                   value={form.topic_id}
                   onChange={onChange}
                   >
                 <option value="">Select a Topic</option>
                 {topics.map((t) => (
-                  <option key={`select-topic-${t.id}`} 
+                  <option key={`select-topic-${t.id}`}
                     value={t.id}
-                    style={{backgroundColor: (t.isvisible) ? "auto": "#8888"}}
+                    style={{backgroundColor: (t.isvisible || t.isvisible == undefined) ? "auto": "#8888"}}
                   >
                     {t.name} {(!t.isvisible) && "(Hidden)"}
                   </option>
@@ -168,24 +164,24 @@ export default function SetupTopicItem() {
             <div className='w3-col m6 w3-padding-small'>
               <label htmlFor="source">Source:</label>
               <input
-                  type="string"
+                  className='w3-input'
                   id="source"
                   name="source"
-                  className='w3-input'
+                  type="string"
                   value={form.source}
                   onChange={onChange}
               />
             </div>
           </div>
         </Container>
-        
-        <Container className="bg-blue c5" padding noMargin>
+
+        <Container className="bg-blue-c5" padding noMargin>
           {(json !== null) && (
             <Table
-                className="bg-blue c4"
+                className="bg-blue-c4"
+                isEdit={true}
                 json={json}
                 rowCount={9999}
-                isEdit={true}
                 onClick={onTableClick}
                 />
           )}
@@ -193,16 +189,16 @@ export default function SetupTopicItem() {
       </div>
       {(editItem) &&
         <>
-          <Container className="bg-blue c3" padding>
+          <Container className="bg-blue-c3" padding>
             <h3>Topic Item: {editItem.name}</h3>
             <div className='w3-row'>
               <div className='w3-col w3-padding-small'>
                 <label htmlFor="source">Source:</label>
                 <input
-                    type="string"
+                    className='w3-input'
                     id="source"
                     name="source"
-                    className='w3-input'
+                    type="string"
                     value={form.source}
                     onChange={onChange}
                 />
@@ -210,11 +206,11 @@ export default function SetupTopicItem() {
             </div>
           </Container>
 
-          <Container className="bg-blue c5" padding>
+          <Container className="bg-blue-c5" padding>
             <FormItem
-                className="bg-blue c4"
-                data={editItem}
+                className="bg-blue-c4"
                 columns={columns}
+                data={editItem}
                 source={form.source}
                 topic_id={form.topic_id}
                 onClose={()=> {setEditItem(null)}}
@@ -236,7 +232,7 @@ const formDefault = {
   symbols: {},
   value: "",
 }
-export function FormItem({data={}, columns={}, className="", source, topic_id, onClose, onSubmit}) {
+export function FormItem({data={}, columns=[], className="", source, topic_id, onClose, onSubmit}) {
   const [form, setForm] = useState({...formDefault});
   const [item, setItem] = useState({
     name: null,
@@ -276,6 +272,7 @@ export function FormItem({data={}, columns={}, className="", source, topic_id, o
     setForm({...form, [name]: checked})
   }
   function handleSubmit(e) {
+    if (form.name == "") return
     const newItem = {...item, name: form.name, topic_id }
     // return
     e.preventDefault();
@@ -283,7 +280,7 @@ export function FormItem({data={}, columns={}, className="", source, topic_id, o
   }
   function onSubmitAdd(e) {
     e.preventDefault();
-    
+
     const newItem = {
       id:item.id,
       name:item.name,
@@ -312,7 +309,7 @@ export function FormItem({data={}, columns={}, className="", source, topic_id, o
   }
   function onSubmitDelete(e) {
     e.preventDefault();
-    
+
     const newItem = {
       id:item.id,
       name:item.name,
@@ -335,7 +332,7 @@ export function FormItem({data={}, columns={}, className="", source, topic_id, o
     if (datatype == "number") {
       if (typeof value == "string") {
         console.info("Conversion needed", value)
-        for (let c of ['-', '‐', ',', ';', ':']) {
+        for (let c of [',', '-', '‐', ';', ':']) {
           if (value.split(c).length > 1) {
             console.info("Found character:", c, value.split(c))
             value = value.split(c).map((v) => parseFloat(v))
@@ -354,7 +351,7 @@ export function FormItem({data={}, columns={}, className="", source, topic_id, o
       setForm({...form, value: [form.value]})
     } else {
       let { value } = form
-      for (let c of ['-', '‐', ',', ';', ':']) {
+      for (let c of [',', '-', '‐', ';', ':']) {
         if (value.split(c).length > 1) {
           console.info("Found character:", c, value.split(c))
           value = value.split(c).map((v) => v.trim())
@@ -371,7 +368,6 @@ export function FormItem({data={}, columns={}, className="", source, topic_id, o
       setForm({...form, value: form.value.join(", ")})
     }
   }
-
 
   function dataList() {
     const result = []
@@ -396,28 +392,28 @@ export function FormItem({data={}, columns={}, className="", source, topic_id, o
     <>
       <div className={`border-blue w3-card w3-padding ${className}`}>
 
-        <h3>Item Property <small>({(data.id)? data.id: "New Item"})</small>
-          <a className="material-symbols-outlined w3-right bg-blue w3-round"
-              style={{cursor: "pointer"}}
-              onClick={onClose}>
-            close
-          </a>
+        <a className="material-symbols-outlined w3-right bg-blue w3-round"
+            style={{cursor: "pointer"}}
+            onClick={onClose}>
+          close
+        </a>
+        <h3><span>Item Property</span> <small>({(data.id) ? data.id: "New Item"})</small>
         </h3>
 
-        <form 
+        <form
             onSubmit={onSubmitAdd}
-            onReset={onSubmitDelete}
-            >
+            onReset={onSubmitDelete}>
           <div className='w3-row'>
             <div className='w3-col m6 w3-padding-small'>
               <div className='w3-col'>
                 <label htmlFor="name">Name:</label>
                 <small className='w3-right'>Required</small>
                 <input
-                    type="string"
+                    className='w3-input'
                     id="name"
                     name="name"
-                    className='w3-input'
+                    title="Name"
+                    type="string"
                     value={form.name}
                     onChange={handleChange}
                     required
@@ -428,17 +424,17 @@ export function FormItem({data={}, columns={}, className="", source, topic_id, o
               <div className='w3-col'>
                 <label htmlFor="column">Column:</label>
                 <select
-                    type="string"
+                    className='w3-input'
                     id="column"
                     name="column"
-                    className='w3-input'
+                    title="Column"
+                    type="string"
                     value={form.column}
                     onChange={handleChange}>
                       <option value="">-Select Column-</option>
                   {columns.filter((c) => (c.key !== "name")).map((c) => (
                     <option key={`column-select-${c.key}`} value={c.key}>
-                      {(c.category) ? c.category + ", " + c.name: c.name
-                      }
+                      {(c.category) ? c.category + ", " + c.name: c.name}
                     </option>
                   ))}
                 </select>
@@ -448,11 +444,11 @@ export function FormItem({data={}, columns={}, className="", source, topic_id, o
                   {Array.isArray(form.value)? (
                     <div className='w3-col'>
                       <FormList
+                        datatype={form.datatype}
                         id="value_list"
                         list={form.value}
                         listDropdown={form.list}
                         listSymbols={form.symbols}
-                        datatype={form.datatype}
                         onUpdate={onListUpdate}
                       />
                     </div>
@@ -467,20 +463,20 @@ export function FormItem({data={}, columns={}, className="", source, topic_id, o
                             <>
                               <div className='w3-col s6'>
                                 <input
-                                    type="string"
+                                    className='w3-input'
                                     id="value"
                                     name="value"
-                                    className='w3-input'
+                                    type="string"
                                     value={form.value}
                                     onChange={handleChange}
                                 />
                               </div>
                               <div className='w3-col s6'>
                                 <select
-                                    type="string"
+                                    className='w3-input'
                                     id="value"
                                     name="value"
-                                    className='w3-input'
+                                    type="string"
                                     value={form.value}
                                     onChange={handleChange}>
                                       <option value="">-Select Column-</option>
@@ -495,10 +491,10 @@ export function FormItem({data={}, columns={}, className="", source, topic_id, o
                           ):(
                             <div className='w3-col s6'>
                               <input
-                                  type="string"
+                                  className='w3-input'
                                   id="value"
                                   name="value"
-                                  className='w3-input'
+                                  type="string"
                                   value={form.value}
                                   onChange={handleChange}
                               />
@@ -508,32 +504,32 @@ export function FormItem({data={}, columns={}, className="", source, topic_id, o
                       )}
                       {(form.datatype == "image") && (
                         <input
-                            type="string"
-                            id="value"
-                            name="value"
                             className='w3-input'
+                            id="value"
                             placeholder='url'
+                            name="value"
+                            type="string"
                             value={form.value}
                             onChange={handleChange}
                         />
                       )}
                       {(form.datatype == "boolean") && (
-                        <input 
-                            type="checkbox"
+                        <input
+                            checked={form.value}
+                            className='w3-check'
                             id="value"
                             name="value"
-                            className='w3-check'
-                            checked={form.value}
+                            type="checkbox"
                             onChange={handleCheckboxChange}>
                         </input>
                       )}
                       {(form.datatype == "number") && (
                         <input
-                            type="number"
+                            className='w3-input'
                             id="value"
                             name="value"
-                            className='w3-input'
                             placeholder='#.##'
+                            type="number"
                             value={form.value}
                             onChange={handleChange}
                         />
@@ -598,28 +594,28 @@ export function FormItem({data={}, columns={}, className="", source, topic_id, o
           </div>
         </form>
 
-        <div 
+        <div
           style={{
             columnCount: 2,
             columnGap: "24px",
             columnRule: "column-rule: 2px dashed #ccc"
           }}>
             {dataList().map((c) => (
-              <div 
+              <div
                 key={`item-category-${c.name}`}
                 style={{breakInside: "avoid"}}>
-                <h4 className='bg-blue c3 border-blue w3-card w3-padding-small'>{(c.name)? c.name: "Default"}</h4>
+                <h4 className='bg-blue-c3 border-blue w3-card w3-padding-small'>{(c.name)? c.name: "Default"}</h4>
                 <table className='table__content' style={{width: "100%"}}>
                   <colgroup>
-                    <col  style={{width: "160px"}}/>
-                    <col  style={{width: "24px"}}/>
-                    <col  style={{width: "auto"}}/>
+                    <col style={{width: "160px"}}/>
+                    <col style={{width: "24px"}}/>
+                    <col style={{width: "auto"}}/>
                   </colgroup>
                   <tbody>
                     {c.data.map((i, idx) => (
                       <tr key={`item-category-${c.name}-${idx}`}>
                         <th className='w3-padding-small' style={{textAlign: "left"}}>
-                          {i.name}: 
+                          {i.name}:
                           {(i.isvisible == false) && (
                             <span className="material-symbols-outlined">visibility_off</span>
                           )}
@@ -633,7 +629,7 @@ export function FormItem({data={}, columns={}, className="", source, topic_id, o
                             edit
                           </span>
                         </td>
-                        
+
                         <td className='w3-padding-small' style={{textAlign: "left"}}>
                           <small>{textDataType(i.datatype, i.value, i.symbols)}</small>
                         </td>
@@ -645,7 +641,13 @@ export function FormItem({data={}, columns={}, className="", source, topic_id, o
             ))}
         </div>
         <div className='w3-center w3-padding-small'>
-            <button className="bg-blue" type="button" onClick={handleSubmit}>Update</button>
+            <button
+                className="bg-blue"
+                title="Update"
+                type="button"
+                onClick={handleSubmit}>
+              Update
+            </button>
         </div>
       </div>
     </>

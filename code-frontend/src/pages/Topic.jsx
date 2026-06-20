@@ -1,8 +1,9 @@
-import { useParams } from "react-router-dom";
 import { useEffect, useState, useContext } from "react";
+import { useParams } from "react-router-dom";
 
-import { fetchDivisionTopicId, fetchTopicFullId, proper,
-    fetchUserItems, fetchUserItems_Add, fetchUserItems_Comment, fetchUserItems_Delete } from '../functions';
+import { fetchDivisionTopicId, fetchTopicFullId } from '../fetch';
+import { fetchUserItems, fetchUserItems_Add, fetchUserItems_Comment, fetchUserItems_Delete } from '../fetch';
+import { proper } from '../functions';
 
 import TopicHeader from '../components/TopicHeader';
 import Container from '../components/Container';
@@ -18,7 +19,7 @@ export default function Topic({divisionName, topicName}) {
   const [json, setJson] = useState(null)
   const [jsonHeading, setJsonHeading] = useState({ missing: false})
   const [bookmarks, setBookmarks] = useState([]);
-    
+
   const [isLoading, setIsLoading] = useState(false);
   const [isComment, setIsComment] = useState(false);
   const [isDelete, setIsDelete] = useState(false);
@@ -27,20 +28,24 @@ export default function Topic({divisionName, topicName}) {
   const {user_id} = useContext(UserContext);
 
   const [error, setError] = useState();
-    
+
   if (topic != params) {
     setParams(topic);
   }
+
+  // Load basic info about topic
+  useEffect(() => {
+    setJson(null)
+    getHeader();
+  }, [params]);
 
   const getHeader = async () => {
     setIsLoading(true);
 
     try {
-      fetchDivisionTopicId(division, topic)
-        .then((response) => {
-          setJsonHeading(response)
-          getData(response.id);
-        });
+      const response = await fetchDivisionTopicId(division, topic)
+      setJsonHeading(response)
+      getData(response.id);
     } catch (e) {
       setError(e);
       if (e.name === "AbortError") {
@@ -48,7 +53,7 @@ export default function Topic({divisionName, topicName}) {
         setJsonHeading({ missing: true});
         return;
       }
-           
+
       console.error("Error", e);
     } finally {
       setIsLoading(false);
@@ -58,20 +63,17 @@ export default function Topic({divisionName, topicName}) {
     if (topic_id == undefined) return
     setIsLoading(true);
     try {
-      fetchTopicFullId(topic_id)
-        .then((response) => {
-          setJson(response)
-          getBookmarks()
-        });
+      const response = await fetchTopicFullId(topic_id)
+      setJson(response)
+      getBookmarks()
     } catch (e) {
+      setError(e);
       if (e.name === "AbortError") {
         console.error("Aborted", e);
         setJsonHeading({ missing: true});
         return;
       }
-            
       console.error("Error", e);
-      setError(e);
     } finally {
       setIsLoading(false);
     }
@@ -89,7 +91,7 @@ export default function Topic({divisionName, topicName}) {
         console.error("Aborted", e);
         return;
       }
-            
+
       console.error("Error", e);
     } finally {}
   }
@@ -124,7 +126,7 @@ export default function Topic({divisionName, topicName}) {
         console.error("Aborted", e);
         return;
       }
-            
+
       console.error("Error", e);
     } finally {}
   }
@@ -142,14 +144,10 @@ export default function Topic({divisionName, topicName}) {
       onTableClick({...bookmarkItem, action: "delete-yes"})
     }
   }
-  // Load basic info about topic
-  useEffect(() => {
-    setJson(null)
-    getHeader();
-  }, [params]);
 
   if (error) return (
-    <div>Something went wrong! Please try again.</div>
+    // <div>Something went wrong! Please try again.</div>
+    <div>{error.message}</div>
   )
   if (isLoading) return (
     <p>Loading</p>
@@ -157,27 +155,27 @@ export default function Topic({divisionName, topicName}) {
   if (jsonHeading.missing) return <NotFound />
   return (
     <>
-      <Container className="bg-green-2" padding>
+      <Container className="bg-green-c2" padding>
         <h2>{proper(topic)}</h2>
       </Container>
-      <Container className="bg-green-4" padding>
-        <TopicHeader topic={jsonHeading} className="bg-green-3" noHeight/>
+      <Container className="bg-green-c4" padding>
+        <TopicHeader topic={jsonHeading} className="bg-green-c3" noHeight/>
       </Container>
-      <Container className="bg-green-5" padding noMargin>
+      <Container className="bg-green-c5" padding noMargin>
         {(json !== null) && (
           <>
-            {(isComment) && 
+            {(isComment) &&
               <FormMsgInput
-                className="bg-green-2"
+                className="bg-green-c2"
                 title="Set Comment"
                 value={bookmarkItem.comments}
                 onClose={onBookmarkClose}
                 onSubmit={onBookmarkSubmit}
               />
             }
-            {(isDelete) && 
+            {(isDelete) &&
               <FormMsgYesNo
-                className="bg-blue-2"
+                className="bg-blue-c2"
                 title="Bookmark"
                 message="Do you want to remove this bookmark?"
                 onClose={onBookmarkClose}
@@ -185,7 +183,7 @@ export default function Topic({divisionName, topicName}) {
             }
             <Table
               key={`Table-${topicName}`}
-              className="bg-green-4"
+              className="bg-green-c4"
               json={json}
               onClick={onTableClick}
               bookmarks={bookmarks}

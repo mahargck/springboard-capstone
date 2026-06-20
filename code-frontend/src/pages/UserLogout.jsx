@@ -1,7 +1,8 @@
-import { useEffect, useContext } from 'react';
+import { useContext, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import UserContext from '../context/UserContext';
-import { fetchUserLogout } from '../functions';
+import { fetchUserLogout } from '../fetch';
+import Container from '../components/Container';
 
 export default function UserLogout() {
   const { onLogout } = useContext(UserContext);
@@ -22,8 +23,12 @@ export default function UserLogout() {
   };
   return (
     <>
-      <h2>User Logout</h2>
-      <p>Redirect to Login Page</p>
+      <Container className="bg-blue-c2">
+        <h2>User Logout</h2>
+      </Container>
+      <Container className="bg-blue-c3">
+        <p>Redirect to Login Page</p>
+      </Container>
     </>
   );
 }

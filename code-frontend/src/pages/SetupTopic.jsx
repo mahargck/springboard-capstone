@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
-import { fetchTopics, fetchTopicsUpdate, FormNull, NullForm } from '../functions';
+import { fetchTopics, fetchTopicsUpdate } from '../fetch';
+import { FormNull, NullForm } from '../functions';
 import Container from '../components/Container';
 import Table from '../components/Table'
 
@@ -103,7 +104,7 @@ const tableTopics = [
 export default function SetupTopic() {
   const [items, setItems] = useState([]);
   const [json, setJson] = useState(null);
-  
+
   const [error, setError] = useState();
   const [isLoading, setIsLoading] = useState(false);
   const [editItem, setEditItem] = useState(null);
@@ -143,7 +144,7 @@ export default function SetupTopic() {
         setError({database: response.error})
         return;
       }
-      
+
       console.error("Error", e);
     } finally {
       setIsLoading(false);
@@ -153,7 +154,7 @@ export default function SetupTopic() {
     setEditItem(formDefault)
   }
   function onTableClick(data) {
-    setEditItem(items.filter((item) => (item.id == data))[0])
+    setEditItem(items.filter((item) => (item.id == data.id))[0])
   }
   function onTableUpdate(data) {
     // Replace "" with null
@@ -162,7 +163,7 @@ export default function SetupTopic() {
     try {
       fetchTopicsUpdate(nullData)
       .then((response) => {
-        
+
         setEditItem(null);
         getTopics();
       });
@@ -176,14 +177,14 @@ export default function SetupTopic() {
   }
   return (
     <>
-      <Container className="bg-blue c2" padding>
+      <Container className="bg-blue-c2" padding>
         <h2>Setup Topic</h2>
       </Container>
       {/* This uses to hide the table instead of removing it and then recreating it */}
       <div hidden={editItem}>
-        <Container className="bg-blue c3" padding>
+        <Container className="bg-blue-c3" padding>
           <button
-            className='w3-right'
+            className='w3-right bg-blue'
             title="Add new Topic"
             onClick={onNewClick}
           >
@@ -194,11 +195,11 @@ export default function SetupTopic() {
           <h3>Topic List
           </h3>
         </Container>
-        
-        <Container className="bg-blue c5" padding noMargin>
+
+        <Container className="bg-blue-c5" padding noMargin>
           {(json !== null) && (
             <Table
-                className="bg-blue c4"
+                className="bg-blue-c4"
                 json={json}
                 rowCount={9999}
                 isEdit={true}
@@ -208,11 +209,11 @@ export default function SetupTopic() {
         </Container>
       </div>
       {(editItem) &&
-        <Container className="bg-blue c3" padding>
+        <Container className="bg-blue-c3" padding>
           <h3>Topic Item: {editItem.name}</h3>
-          
+
           <FormTopic
-              className="bg-blue c4"
+              className="bg-blue-c4"
               data={editItem}
               onClose={()=> {setEditItem(null)}}
               onSubmit={onTableUpdate}
@@ -223,7 +224,7 @@ export default function SetupTopic() {
   );
 }
 
-export function FormTopic({data={}, className="", onClose, onSubmit}) {
+export function FormTopic({data={}, className="", onClose=() => {}, onSubmit=() => {}}) {
   const [form, setForm] = useState({...formDefault});
 
   useEffect(()=>{
@@ -256,144 +257,159 @@ export function FormTopic({data={}, className="", onClose, onSubmit}) {
     setForm({...form, category: list});
   }
   return (
-    <>
-      <form 
-          onSubmit={handleSubmit}
-          className={`w3-border w3-card w3-padding ${className}`}>
+    <form
+        onSubmit={handleSubmit}
+        className={`border-blue w3-card w3-padding ${className}`}>
 
-        <h3>Topic Property
-          <a
-              className="material-symbols-outlined w3-right bg-blue w3-round"
-              style={{cursor: "pointer"}}
-              onClick={onClose}>
-            close
-          </a>
-        </h3>
-        
-        <div className='w3-row'>
-          <div className='w3-col m6 w3-padding-small'>
-            <div className='w3-col s6'>
-              <label>ID:</label> {(form.id)? form.id: "(New)"}
-            </div>
-            <div className='w3-col'>
-              <label htmlFor="division">Division:</label>
-              <small className='w3-right'>Required</small>
-              <input
-                  type="string"
-                  id="division"
-                  name="division"
-                  className='w3-input'
-                  value={form.division}
-                  onChange={handleChange}
-                  required
-              />
-            </div>
-            <div className='w3-col'>
-              <label htmlFor="section">Section:</label>
-              <small className='w3-right'>Required</small>
-              <input
-                  type="string"
-                  id="section"
-                  name="section"
-                  className='w3-input'
-                  value={form.section}
-                  onChange={handleChange}
-                  required
-              />
-            </div>
-            <div className='w3-col'>
-              <label htmlFor="name">Name:</label>
-            <small className='w3-right'>Required</small>
-              <input
-                  type="string"
-                  id="name"
-                  name="name"
-                  className='w3-input'
-                  value={form.name}
-                  onChange={handleChange}
-                  required
-              />
-            </div>
-          </div>
-          <div className='w3-col m6 w3-padding-small'>
-            <div className='w3-col'>
-              <label htmlFor="isvisible">Visible:</label>
-              <input 
-                  type="checkbox"
-                  id="isvisible"
-                  name="isvisible"
-                  className='w3-check'
-                  checked={form.isvisible}
-                  onChange={handleCheckboxChange}>
-              </input>
-            </div>
-            <div className='w3-col'>
-              <label htmlFor="logo">Logo:</label>
-              <input
-                  type="string"
-                  id="logo"
-                  name="logo"
-                  className='w3-input'
-                  value={form.logo}
-                  onChange={handleChange}
-              />
-            </div>
-            <div className='w3-col'>
-              <label htmlFor="category">Category:</label>
-              <input
-                  type="string"
-                  id="category"
-                  name="category"
-                  className='w3-input'
-                  value={form.category}
-                  onChange={handleChange}
-              />
-            </div>
-            <div className='w3-col'>
-              <label htmlFor="order_id">Order:</label>
-              <input
-                  type="numbers"
-                  id="order_id"
-                  name="order_id"
-                  className='w3-input'
-                  value={form.order_id}
-                  onChange={handleChange}
-              />
-            </div>
+      <a
+          className="material-symbols-outlined w3-right bg-blue w3-round"
+          style={{cursor: "pointer"}}
+          title="Close Window"
+          onClick={onClose}>
+        close
+      </a>
+      <h3>Topic Property</h3>
+
+      <div className='w3-row'>
+        <div className='w3-col m6 w3-padding-small'>
+          <div className='w3-col s6'>
+            <label>ID:</label> {(form.id)? form.id: "(New)"}
           </div>
           <div className='w3-col'>
-            <label htmlFor="description">Description:</label>
+            <label htmlFor="division">Division:</label>
             <small className='w3-right'>Required</small>
-            <textarea
-                id="description"
-                name="description"
+            <input
                 className='w3-input'
-                rows={5}
-                value={form.description}
+                id="division"
+                name="division"
+                title="Division"
+                type="string"
+                value={form.division}
                 onChange={handleChange}
                 required
             />
-            <div className='w3-small w3-border w3-clear w3-margin w3-padding-small w3-cyan'>
-              <span
-                  className="material-symbols-outlined w3-left w3-margin-right">
-                info
-              </span>
-              Use the '|' to split description into a short format and long format.
-            </div>
-            <div className='w3-small'>
-              <b>Short</b><br />
-              {form.description.split('|')[0]}
-            </div>
-            <div className='w3-small'>
-              <b>Long</b><br />
-              {form.description.replaceAll('|', '')}
-            </div>
           </div>
-          <div className='w3-col w3-center'>
-              <button className="bg-blue" type="submit">Update</button>
+          <div className='w3-col'>
+            <label htmlFor="section">Section:</label>
+            <small className='w3-right'>Required</small>
+            <input
+                className='w3-input'
+                id="section"
+                name="section"
+                title="Section"
+                type="string"
+                value={form.section}
+                onChange={handleChange}
+                required
+            />
+          </div>
+          <div className='w3-col'>
+            <label htmlFor="name">Name:</label>
+          <small className='w3-right'>Required</small>
+            <input
+                className='w3-input'
+                id="name"
+                name="name"
+                title="Name"
+                type="string"
+                value={form.name}
+                onChange={handleChange}
+                required
+            />
           </div>
         </div>
-      </form>
-    </>
+        <div className='w3-col m6 w3-padding-small'>
+          <div className='w3-col'>
+            <label htmlFor="isvisible">Visible:</label>
+            <input
+                className='w3-check'
+                id="isvisible"
+                name="isvisible"
+                title="Visible"
+                type="checkbox"
+                checked={form.isvisible}
+                onChange={handleCheckboxChange}>
+            </input>
+          </div>
+          <div className='w3-col'>
+            <label htmlFor="logo">Image:</label>
+            <input
+                className='w3-input'
+                id="logo"
+                name="logo"
+                title="Image address"
+                type="string"
+                value={form.logo}
+                onChange={handleChange}
+            />
+          </div>
+          <div className='w3-col'>
+            <label htmlFor="category">Category:</label>
+            <input
+                className='w3-input'
+                id="category"
+                name="category"
+                title="Category"
+                type="string"
+                value={form.category}
+                onChange={handleChange}
+            />
+          </div>
+          <div className='w3-col'>
+            <label htmlFor="order_id">Sort Order:</label>
+            <input
+                className='w3-input'
+                id="order_id"
+                name="order_id"
+                title="Sort Order"
+                type="number"
+                value={form.order_id}
+                onChange={handleChange}
+            />
+          </div>
+        </div>
+        <div className='w3-col'>
+          <label htmlFor="description">Description:</label>
+          <small className='w3-right'>Required</small>
+          <textarea
+              className='w3-input'
+              id="description"
+              name="description"
+              rows={5}
+              title="Description"
+              value={form.description}
+              onChange={handleChange}
+              required
+          />
+          <div className='w3-small w3-border w3-clear w3-margin w3-padding-small w3-cyan'>
+            <span
+                className="material-symbols-outlined w3-left w3-margin-right">
+              info
+            </span>
+            Use the '|' to split description into a short format and long format.
+          </div>
+          <div className='w3-small'>
+            <b>Short</b><br />
+            <span title="Short Version">
+              {form.description.split('|')[0]}
+            </span>
+          </div>
+          <div className='w3-small'>
+            <b>Long</b><br />
+            <span title="Long Version">
+              {form.description.replaceAll('|', '')}
+            </span>
+          </div>
+        </div>
+        <div className='w3-col w3-center'>
+            <button
+                className="bg-blue"
+                title="Update"
+                type="submit">
+              Update
+            </button>
+        </div>
+      </div>
+    </form>
   );
 }

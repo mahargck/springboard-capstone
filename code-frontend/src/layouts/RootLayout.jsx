@@ -2,7 +2,8 @@ import { useContext, useEffect, useState } from 'react'
 import { Outlet, NavLink } from "react-router-dom";
 import Container from '../components/Container';
 import UserContext from '../context/UserContext';
-import {fetchDivisions, proper} from '../functions'
+import {fetchDivisions} from '../fetch'
+import {proper} from '../functions'
 
 export default function RootLayout() {
   const {user_id, email, is_admin} = useContext(UserContext);

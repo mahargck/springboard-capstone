@@ -22,12 +22,13 @@ export default function FormMsgYesNo({ className='', title=null, message=null, o
 
   return (
     <div className='Form_container'>
-      <div className={`${'border'+ className.split('-')[1]} w3-card w3-padding ${className}`}>
+      <div className={`${'border'+ className.split('-')[1]} w3-card w3-padding border-blue ${className}`}>
         <h3>
           {title}
           <a
             className="material-symbols-outlined w3-right bg-blue w3-round"
             style={{cursor: "pointer"}}
+            title='Close MsgBox'
             onClick={onClose}>
               close
           </a>
@@ -38,8 +39,20 @@ export default function FormMsgYesNo({ className='', title=null, message=null, o
           </div>
         )}
         <div className='w3-padding-small'>
-          <button className="bg-blue" type="button" onClick={handleYes}>Yes</button>
-          <button className="bg-blue w3-right" type="button" onClick={handleNo}>No</button>
+          <button
+              className="bg-blue"
+              type="button"
+              title='Select Yes'
+              onClick={handleYes}>
+            Yes
+          </button>
+          <button
+              className="bg-blue w3-right"
+              type="button"
+              title='Select No'
+              onClick={handleNo}>
+            No
+          </button>
         </div>
       </div>
     </div>
