@@ -143,7 +143,7 @@ export default function UserBookmarks() {
                 <table className="table__content bg-blue-c5"
                   style={{width: "100%"}}>
                     <colgroup>
-                    <col style={{width: "128px"}} />
+                    <col style={{width: "160px"}} />
                     <col style={{width: "auto"}} />
                     <col style={{width: "64px"}} />
                     </colgroup>
@@ -168,7 +168,7 @@ export default function UserBookmarks() {
                       <td>
                         <Link className="bg-transparent" to={`../${div.name}/${topic.name}`}>
                             <span className="material-symbols-outlined fg-blue-c2">
-                              link
+                              link_2
                             </span>
                         </Link>
                         <span className="material-symbols-outlined pointer"
