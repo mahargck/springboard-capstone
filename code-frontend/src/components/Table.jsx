@@ -91,14 +91,29 @@ export default function Table ({
       const datatype = header.filter((h) => (h.key == key))[0].datatype;
       let v1 = r1[key]
       let v2 = r2[key]
+      if (sortOrder) {
+        if (Array.isArray(v1)) v1 = v1[0]
+        if (Array.isArray(v2)) v2 = v2[0]
+      } else {
+        if (Array.isArray(v1)) v1 = v1[v1.length - 1]
+        if (Array.isArray(v2)) v2 = v2[v2.length - 1]
+      }
       if (datatype === "string") {
         if (v1 == null) v1 = ""
         if (v2 == null) v2 = ""
-        return (sortOrder) ? v1.localeCompare(v2) : v2.localeCompare(v1);
+        if (sortOrder) {
+          return v1.localeCompare(v2)
+        } else {
+          return v2.localeCompare(v1)
+        }
       } else {
         if (v1 == null) v1 = 0
         if (v2 == null) v2 = 0
-        return (sortOrder) ? (v1 - v2) : (v2 - v1);
+        if (sortOrder) {
+          return (v1 - v2)
+        } else {
+          return (v2 - v1)
+        }
       }
     });
     let result;

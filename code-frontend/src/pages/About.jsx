@@ -11,7 +11,7 @@ export default function About() {
           In 2022, my wife started our homesteading journey by going "Mr. G, I want some chickens to give me eggs."  Thinking 'Happy Wife = Happy Life', I agreed.  Unknown to me, my wife entered <b>Research Mode</b> looking at all types of chickens; their breeds, egg production, temperament, etc. She compiled the information into several sheets of paper before switching to notebooks.  Deciding on Buff Orpingtons and Americaunas, we started a flock of four and later, added two Lavendar Orpingtons.
         </p>
         <p>
-          With egg production underway, my wife shifted to meat production and asked, "Mr. G, I want some rabits to give us meat." Again, I said yes and, again, my wife started researching.
+          With egg production underway, my wife shifted to meat production and asked, "Mr. G, I want some rabbits to give us meat." Again, I said yes and, again, my wife started researching.
         </p>
         <p>
           Skip forward several years, we now have 5 acres with goats, pigs, and chickens. We have also tried both ducks and rabbits. (Ducks are coming back next year!) My wife is planning on sheep next year and trying to figure out a way to get a cow or two.

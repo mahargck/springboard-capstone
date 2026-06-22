@@ -41,7 +41,10 @@
   background-color: #88888822;
 }
 .table__content tbody td {
-  padding: 0 2px;
+  padding: 0 4px;
+}
+.table__content th, .table__content td {
+  border-right: 1px solid #8882;
 }
 
 
