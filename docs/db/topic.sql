@@ -1,6 +1,6 @@
 DROP TABLE IF EXISTS topics;
 CREATE TABLE topics (
-    topic_id SERIAL PRIMARY KEY,
+    id SERIAL PRIMARY KEY,
     division VARCHAR(255) NOT NULL,
     section VARCHAR(255),
     name VARCHAR(255) NOT NULL,
@@ -9,7 +9,8 @@ CREATE TABLE topics (
     logo VARCHAR(255),
     description TEXT,
     category VARCHAR(255),
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    CONSTRAINT unique_topic UNIQUE (name)
 );
 GRANT ALL PRIVILEGES ON topics TO web;
 ALTER TABLE topics DROP COLUMN IF EXISTS category;

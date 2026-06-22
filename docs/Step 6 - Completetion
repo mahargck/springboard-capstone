@@ -1,0 +1,18 @@
+# Completetion Requirements
+
+- [x] Configure project structure and folder organization using Next.js
+- [ ] Implement CRUD operations for MongoDB database interactions.
+  - I am utilizing Postgress instead of MongoDB
+- [x] You are free to either develop a RESTful API to handle the data logic or use GraphQL or combination of both if your project is “passing lots of data around”.
+  - RESTful API
+- [x] Implement authentication and authorization mechanisms.
+- [x] Create UI components and layout using React.js.
+- [x] Integrate UI components with back-end APIs for data fetching and manipulation.
+- [x] Implement state management (Redux, Context API, or Equivalent ).
+  -Context
+- [x] Style UI components using CSS.
+- [x] Conduct unit tests for individual components/modules and integration tests to validate end-to-end functionality.
+  - Frontend only
+- [x] Debug and fix issues identified during testing.
+- [ ] Deploy the application to Render or any other hosting platform.
+- [x] Create necessary documentation

@@ -30,4 +30,9 @@ router.patch('/columns', topics.patchColumns);
 router.patch('/topic', topics.patchTopic);
 router.patch('/topic/data', topics.patchData);
 
+// SQL Import Statements
+router.get('/sql/columns', topics.sqlColumns);
+router.get('/sql/topics', topics.sqlTopic);
+router.get('/sql/topic-items', topics.sqlTopicItem);
+
 module.exports = router;

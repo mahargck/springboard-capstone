@@ -58,6 +58,9 @@ export default function About() {
           </div>
         </div>
       </Container>
+      <Container className="bg-blue-c4" padding>
+          <span className="w3-right">Last Updated: {import.meta.env.VITE_LAST_UPDATED}</span>
+      </Container>
     </>
   );
 }

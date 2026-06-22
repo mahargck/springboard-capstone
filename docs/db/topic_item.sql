@@ -2,7 +2,7 @@ DROP TABLE IF EXISTS topic_item;
 CREATE TABLE topic_item (
     id SERIAL PRIMARY KEY,
     name VARCHAR(255) NOT NULL,
-    topic_id int REFERENCES topics(topic_id) ON DELETE CASCADE,
+    topic_id int REFERENCES topics(id) ON DELETE CASCADE,
     data JSONB
 );
 GRANT ALL PRIVILEGES ON topic_item TO web;

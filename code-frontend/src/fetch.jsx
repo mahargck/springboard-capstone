@@ -1,12 +1,10 @@
 import { stringToZone } from './functions';
-const BASE_PORT = 3000;
-const BASE_URL = `http://localhost:${BASE_PORT}`;
+const BASE_URL = import.meta.env.VITE_API_URL || `http://localhost:3000`;
 
 const METHOD_GET = "GET";
 const METHOD_POST = "POST";
 const METHOD_PATCH = "PATCH";
 const METHOD_DELETE = "DELETE";
-
 
 export async function fetchDivisions() {
   const response = await fetch(`${BASE_URL}/division/`, {

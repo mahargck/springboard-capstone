@@ -12,7 +12,8 @@ CREATE TABLE columns (
     symbols jsonb,
     category VARCHAR(255),
     order_id integer,
-    styleWidth integer
+    styleWidth integer,
+    CONSTRAINT unique_key UNIQUE (key)
 );
 GRANT ALL PRIVILEGES ON columns TO web;
 

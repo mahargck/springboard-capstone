@@ -89,7 +89,7 @@ export default function RootLayout() {
       </main>
 
       <footer>
-        <Container>
+        <Container padding>
           Copyright 2026. All Rights Reserved.
         </Container>
       </footer>

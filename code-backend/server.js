@@ -1,5 +1,6 @@
 const express = require('express');
 // All database queries will be made through the db object, which is imported from the db.js file
+process.loadEnvFile(); 
 const db = require('./models/db.js');
 const cors = require('cors');
 const cookieParser = require('cookie-parser');
@@ -26,31 +27,36 @@ app.use('/', topicRoutes);
 app.use('/user', userRoutes);
 
 app.get('/zip_code/:zip_code', (req, res) => {
-    let { zip_code } = req.params;
-    if (zip_code == undefined) {
-        throw new ErrorExpress("Missing zip code value.  Follow the path:  /zip_code/{zip_code}", 400);
-    }
-    zip_code = parseInt(zip_code);
-    const zip = zipcodes.find((z) => z.zip_code === zip_code);
-    if (zip) {
-        return res.send(zip);
-    }
-    return res.status(404).send({ error: "Zip code not found" });
+  let { zip_code } = req.params;
+  if (zip_code == undefined) {
+    throw new ErrorExpress("Missing zip code value.  Follow the path:  /zip_code/{zip_code}", 400);
+  }
+  zip_code = parseInt(zip_code);
+  const zip = zipcodes.find((z) => z.zip_code === zip_code);
+  if (zip) {
+    return res.send(zip);
+  }
+  return res.status(404).send({ error: "Zip code not found" });
 });
 
 // Catch-all error handler
 // app.use((req, res, next) => {
-//     next(new ErrorExpress("Not Found", 404));
+//   next(new ErrorExpress("Not Found", 404));
 // })
 // Catch-all error handler
-app.use((error, req, res, next) => {
-    let status = error.status || 500;
-    let message = error.message || "An unexpected error occurred.";
+app.get('/', (req, res) => {
+  res.send("Homesteader's Notebook API");
+});
 
-    console.error("error:", error)
-    return res.status(status).send({error: message});
+app.use((error, req, res, next) => {
+  let status = error.status || 500;
+  let message = error.message || "An unexpected error occurred.";
+
+  console.error("error:", error)
+  return res.status(status).send({error: message});
 })
 
-app.listen(3000, () => {
-    console.info('Server running at http://localhost:3000/');
+const PORT = process.env.PORT || 3000
+app.listen(PORT, () => {
+  console.info(`Server running at http://localhost:${PORT}/`);
 });
