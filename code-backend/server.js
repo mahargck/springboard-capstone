@@ -1,6 +1,11 @@
 const express = require('express');
 // All database queries will be made through the db object, which is imported from the db.js file
-process.loadEnvFile(); 
+try {
+  process.loadEnvFile(); 
+}
+catch(e) {
+  console.log('Missing ".env" file')
+}
 const db = require('./models/db.js');
 const cors = require('cors');
 const cookieParser = require('cookie-parser');
