@@ -10,6 +10,8 @@ const store = {
   columns: undefined,
   data: {},
 };
+
+
 module.exports.reset = (req, res) => {
   store.divisionUnique = undefined;
   store.division = {};
@@ -23,7 +25,7 @@ async function getSQLColumns() {
     console.info("Using cached data for columns");
     return store.columns;
   }
-  store.columns = await db.many('SELECT * FROM "columns" c ORDER BY c.category NULLS FIRST, c.order_id, c.name;');
+  store.columns = await db.manyOrNone('SELECT * FROM "columns" c ORDER BY c.category NULLS FIRST, c.order_id, c.name;');
   return store.columns;
 }
 async function postSQLColumns(data) {
@@ -70,14 +72,17 @@ async function patchSQLColumns(data) {
   return result;
 }
 module.exports.getColumns = async (req, res, next) => {
-  getSQLColumns()
-  .then((data) => {
-    return res.send(data);
-  })
-  .catch((error) => {
+  if (USE_STORE && store.columns != undefined) {
+    console.info("Using cached data for columns");
+    return store.columns;
+  }
+  try {
+    store.columns = await db.manyOrNone('SELECT * FROM "columns" c ORDER BY c.category NULLS FIRST, c.order_id, c.name;');
+    return res.send(store.columns);
+  } catch (error) {
     console.error('ERROR:', error)
-    next(new ErrorExpress("Problem pulling column data", 400));
-  });
+    next(new ErrorExpress(error.message, 400));
+  }
 };
 module.exports.postColumns = async (req, res, next) => {
   const body = req.body;
@@ -185,7 +190,7 @@ module.exports.getDivision = async (req, res, next) => {
     return res.send(store.divisionUnique);
   }
   const result = [];
-  db.many('SELECT DISTINCT division FROM topics WHERE isvisible = true ORDER BY division;')
+  db.manyOrNone('SELECT DISTINCT division FROM topics WHERE isvisible = true ORDER BY division;')
   .then((data) => {
     for (const i of data) {
       if (!result.includes(i.division)) result.push(i.division)
@@ -209,7 +214,7 @@ module.exports.getDivisionId = async (req, res, next) => {
     console.info("Using cached data for division:", division);
     return res.send(store.division[division]);
   }
-  db.many('SELECT * FROM topics WHERE isvisible = true AND lower(division) = lower($1) ORDER BY order_id, name;', [division])
+  db.manyOrNone('SELECT * FROM topics WHERE isvisible = true AND lower(division) = lower($1) ORDER BY order_id, name;', [division])
   .then((data) => {
     store.division[division] = data;
     for (let t of data) {
@@ -342,7 +347,7 @@ module.exports.getDataId = async (req, res, next) => {
     console.info("Using cached data for topic:", topic_id);
     return res.send(store.data[topic_id]);
   }
-  db.many('SELECT * FROM topic_item WHERE topic_id = $1;', [topic_id])
+  db.manyOrNone('SELECT * FROM topic_item WHERE topic_id = $1;', [topic_id])
   .then((data) => {
     store.data[topic_id] = data;
     return res.send(data);
@@ -413,7 +418,7 @@ function sqlString(value) {
 }
 module.exports.sqlColumns = async (req, res, next) => {
   try {
-    const columns = await db.many('SELECT * FROM "columns" c ORDER BY c.category NULLS FIRST, c.order_id, c.name;');
+    const columns = await db.manyOrNone('SELECT * FROM "columns" c ORDER BY c.category NULLS FIRST, c.order_id, c.name;');
     const data = []
     for (let c of columns) {
       data.push(`(  ${[
@@ -446,7 +451,7 @@ module.exports.sqlColumns = async (req, res, next) => {
 };
 module.exports.sqlTopic = async (req, res, next) => {
   try {
-    const topics = await db.many('SELECT * FROM topics;');
+    const topics = await db.manyOrNone('SELECT * FROM topics ORDER BY id;');
     const data = []
     for (let t of topics) {
       data.push(`(  ${[
@@ -475,7 +480,7 @@ module.exports.sqlTopic = async (req, res, next) => {
 };
 module.exports.sqlTopicItem = async (req, res, next) => {
   try {
-    const topicItem = await db.many('SELECT * FROM topic_item ti ORDER BY ti.topic_id, ti.name;');
+    const topicItem = await db.manyOrNone('SELECT * FROM topic_item ti ORDER BY ti.topic_id, ti.name;');
     const data = []
     for (let i of topicItem) {
       data.push(`(  ${[

@@ -1,7 +1,7 @@
 DROP TABLE IF EXISTS columns;
 CREATE TABLE columns (
     id SERIAL PRIMARY KEY,
-    key VARCHAR(255) NOT NULL,
+    key VARCHAR(255) UNIQUE NOT NULL,
     name VARCHAR(255) NOT NULL,
     mouseoverText TEXT,
     dataType VARCHAR(50) NOT NULL,

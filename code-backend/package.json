@@ -7,9 +7,10 @@
   "type": "commonjs",
   "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node server.js",
-    "dev": "cls & nodemon server.js"
+    "start": "node --env-file=.env server.js",
+    "dev": "cls & --env-file=.env nodemon server.js",
+    "test": "cls & jest --runInBand --detectOpenHandles",
+    "test:watch": "cls & jest --watch"
   },
   "dependencies": {
     "bcrypt": "^6.0.0",
@@ -17,8 +18,13 @@
     "cors": "^2.8.6",
     "express": "^5.2.1",
     "express-validator": "^7.3.2",
+    "http": "^0.0.1-security",
     "jsonwebtoken": "^9.0.3",
     "pg-promise": "^12.6.2",
     "validate": "^5.2.0"
+  },
+  "devDependencies": {
+    "jest": "^30.4.2",
+    "supertest": "^7.2.2"
   }
 }

@@ -14,5 +14,6 @@
 - [x] Conduct unit tests for individual components/modules and integration tests to validate end-to-end functionality.
   - Frontend only
 - [x] Debug and fix issues identified during testing.
-- [ ] Deploy the application to Render or any other hosting platform.
+- [x] Deploy the application to Render or any other hosting platform.
+  - [Render website link: https://springboard-capstone-szkm.onrender.com/](https://springboard-capstone-szkm.onrender.com/)
 - [x] Create necessary documentation

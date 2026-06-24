@@ -1,0 +1,12 @@
+# Springboard Graders
+
+Thank you for taking the time to review and grade my Capstone project. As you have found this file, you can see that I have collected all the Capstone Step files in the /docs file.  
+
+The capstone project has some setup pages (4) which require a user with admin permissions.  I specifically do allow the website to set this attribute but require it be changed through the database directly.  For grading purposes, I have created a user for this purpose.
+
+- email: grading@springboard.com
+- password: 123456
+
+After this project has fully been graded, I will delete this user and this file from the project.  I am not super worried about lose of data as I can quickly rebuild the entire database and load it back up quickly.
+
+If you have any questions and or comments, please reach out to me at mahargck@gmail.com.

@@ -1,9 +1,10 @@
 const bcrypt = require('bcrypt');
-const ErrorExpress = require('../errorExpress.js');
-const db = require('./db.js');
 const config = require('../config.js');
+const db = require('./db.js');
 const { validationResult } = require('express-validator');
 const jwt = require('jsonwebtoken');
+
+const ErrorExpress = require('../errorExpress.js');
 
 async function hashPassword(password) {
   try {
@@ -27,6 +28,11 @@ module.exports.register = async (req, res, next) => {
     const { email, password, plant_hardiness_zone, state } = req.body;
     let { zip_code } = req.body;
     if (zip_code == "") zip_code = null;
+    if (isNaN(parseInt(zip_code))) {
+      zip_code = null
+    } else {
+      zip_code = parseInt(zip_code)
+    }
     let hashedPassword;
     try {
       hashedPassword = await hashPassword(password);

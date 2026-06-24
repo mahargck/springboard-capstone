@@ -3,7 +3,7 @@ CREATE TABLE topics (
     id SERIAL PRIMARY KEY,
     division VARCHAR(255) NOT NULL,
     section VARCHAR(255),
-    name VARCHAR(255) NOT NULL,
+    name VARCHAR(255) UNIQUE NOT NULL,
     order_id INTEGER,
     isvisible BOOLEAN DEFAULT TRUE,
     logo VARCHAR(255),
