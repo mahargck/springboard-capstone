@@ -264,7 +264,9 @@ export function FormItem({data={}, columns=[], className="", source, topic_id, o
       // Need to find the datatype
       const column = columns.filter((c) => (c.key == value))[0]
       const datatype = (column) ? column.datatype: null
-      setForm({...form, column: value, datatype: datatype, value: ""})
+      const list = (column) ? column.list: []
+      const symbols = (column) ? column.symbols: {}
+      setForm({...form, column: value, datatype: datatype, value: "", list: [...list], symbols: {...symbols}})
     } else {
       setForm({...form, [name]: value})
     }
@@ -360,6 +362,7 @@ export function FormItem({data={}, columns=[], className="", source, topic_id, o
           break
         }
       }
+      if (!Array.isArray(value)) value = [value]
       setForm({...form, value: value})
     }
   }

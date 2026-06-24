@@ -114,6 +114,7 @@ const tableColumns = [
     "name": "Category",
     "datatype": "string",
     "isvisible": true,
+    "isfilter": true,
     "issort": true,
     "list": [],
     "symbols": {},
@@ -168,6 +169,16 @@ export default function SetupColumn() {
       .then((response) => {
         if (response.length > 0) {
           setItems(response)
+          const catList = []
+          for (let c of response) {
+            if (!catList.includes(c.category)) catList.push(c.category)
+          }
+          catList.sort()
+          for (let c in tableColumns) {
+            if (tableColumns[c].key == "category") {
+              tableColumns[c].list = catList
+            }
+          }
           setJson({
             header: tableColumns,
             data: response
