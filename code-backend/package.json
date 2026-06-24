@@ -7,8 +7,8 @@
   "type": "commonjs",
   "main": "server.js",
   "scripts": {
-    "start": "node --env-file=.env server.js",
-    "dev": "cls & --env-file=.env nodemon server.js",
+    "start": "node server.js",
+    "dev": "cls & nodemon server.js",
     "test": "cls & jest --runInBand --detectOpenHandles",
     "test:watch": "cls & jest --watch"
   },
